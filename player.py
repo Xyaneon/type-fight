@@ -2,6 +2,8 @@
 
 import math, os, pygame
 
+player_arm_spacing = 128 / 2
+
 class Player:
     '''Class representing the player's character onscreen'.'''
     def __init__(self, screen):
@@ -28,16 +30,14 @@ class Player:
         self.surface.fill(pygame.color.Color(0, 0, 0, 0))
 
         # Left arm
-        self.left_arm_rect = self.left_arm_image.get_rect()
-        la_center_rect = self.left_arm_rect.copy()
-        la_center_rect.right = self.rect.centerx - 32
+        la_center_rect = self.left_arm_image.get_rect().copy()
+        la_center_rect.right = self.rect.centerx - player_arm_spacing
         la_center_rect.top = self.rect.centery + 15 * math.sin(self.updown_juice)
         self.surface.blit(self.left_arm_image, la_center_rect)
 
         # Right arm
-        self.right_arm_rect = self.right_arm_image.get_rect()
-        ra_center_rect = self.right_arm_rect.copy()
-        ra_center_rect.left = self.rect.centerx + 32
+        ra_center_rect = self.right_arm_image.get_rect().copy()
+        ra_center_rect.left = self.rect.centerx + player_arm_spacing
         ra_center_rect.top = self.rect.centery + 15 * math.sin(self.updown_juice)
         self.surface.blit(self.right_arm_image, ra_center_rect)
 

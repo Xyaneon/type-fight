@@ -67,7 +67,7 @@ while 1:
     # Draw graphics
     c_entry.render()
     game_surface.fill(pygame.color.Color(0, 0, 0))
-    hud_surface = hud.render(c_entry)
+    hud_surface = hud.render(c_entry, player.health_percent, opponent.health_percent)
     game_surface.blit(opponent.render(), opponent.get_rect())
     game_surface.blit(player.render(), player.get_rect())
     screen.blit(game_surface, game_surface.get_rect())
