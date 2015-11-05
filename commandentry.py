@@ -15,6 +15,7 @@ class CommandEntry:
         self.surface = None
         self.text = ''
         self.text_surface = None
+        self.cursor_surface = None
         self.cursor_pos = 0
 
     def set_text(self, text):
@@ -109,11 +110,14 @@ class CommandEntry:
         window and text.'''
         padding = 4
         self.surface = pygame.Surface((385, 55), pygame.SRCALPHA).copy()
-        self.text_surface = command_font.render('>' + self.text + '_', True, command_text_color)
+        self.text_surface = command_font.render('>' + self.text, True, command_text_color)
+        # For text cursor
+        self.cursor_surface = command_font.render('>' + self.text[:self.cursor_pos] + '_', True, command_text_color)
         border_rect = self.surface.get_rect().inflate(-padding, -padding).move(padding / 2, padding / 2)
         pygame.draw.rect(self.surface, command_bkg_color, border_rect)
         if self.text_surface is not None:
             text_left_align = padding
             text_top_align = padding
             self.surface.blit(self.text_surface, (text_left_align, text_top_align))
+            self.surface.blit(self.cursor_surface, (text_left_align, text_top_align))
         return self.surface
