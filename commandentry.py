@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-import pygame, sys
+import math, pygame, sys
 
 prompt_height = 64
 pygame.font.init()
@@ -17,6 +17,7 @@ class CommandEntry:
         self.text_surface = None
         self.cursor_surface = None
         self.cursor_pos = 0
+        self.cursor_fade_phase = 0
 
     def set_text(self, text):
         '''Sets the text displayed in the command entry window.'''
@@ -109,15 +110,24 @@ class CommandEntry:
         '''Returns a pygame.Surface containing the rendered command prompt
         window and text.'''
         padding = 4
+        self.cursor_fade_phase += (2.0 * math.pi) / 60.0
         self.surface = pygame.Surface((385, 55), pygame.SRCALPHA).copy()
+
         self.text_surface = command_font.render('>' + self.text, True, command_text_color)
         # For text cursor
-        self.cursor_surface = command_font.render('>' + self.text[:self.cursor_pos] + '_', True, command_text_color)
+        cursor_draw_pos = command_font.size('>' + self.text[:self.cursor_pos])[0]
+        cursor_color = command_text_color
+        cursor_alpha = int(math.floor(math.fabs(255 * math.sin(self.cursor_fade_phase))))
+        cursor_alpha =  min(255, max(0, cursor_alpha))
+        self.cursor_surface = command_font.render('_', False, cursor_color)
+        self.cursor_surface = self.cursor_surface.convert()
+        self.cursor_surface.set_alpha(cursor_alpha)
+
         border_rect = self.surface.get_rect().inflate(-padding, -padding).move(padding / 2, padding / 2)
         pygame.draw.rect(self.surface, command_bkg_color, border_rect)
         if self.text_surface is not None:
             text_left_align = padding
             text_top_align = padding
             self.surface.blit(self.text_surface, (text_left_align, text_top_align))
-            self.surface.blit(self.cursor_surface, (text_left_align, text_top_align))
+            self.surface.blit(self.cursor_surface, (text_left_align + cursor_draw_pos, text_top_align))
         return self.surface
