@@ -23,29 +23,34 @@ class CommandEntry:
         '''Handles a KEYDOWN event, which is very important for this particular
         class since it handles text input from the keyboard.'''
         if event.key == pygame.K_BACKSPACE:
-          # Delete text before cursor.
-          self.backspace_at_cursor()
+            # Delete text before cursor.
+            self.backspace_at_cursor()
         elif event.key == pygame.K_DELETE:
-          # Delete text highlighted by (at) cursor.
-          self.delete_at_cursor()
+            # Delete text highlighted by (at) cursor.
+            self.delete_at_cursor()
         elif event.key == pygame.K_LEFT:
-          self.move_cursor_left()
+            self.move_cursor_left()
         elif event.key == pygame.K_RIGHT:
-          self.move_cursor_right()
+            self.move_cursor_right()
+        elif event.key == pygame.K_RETURN:
+            # Process a command
+            # Below is temporary debug code
+            if self.text == 'exit':
+                pygame.quit()
         else:
-          self.insert_char_at_cursor(keyboardentry.GetCharFromKey(event))
+            self.insert_char_at_cursor(keyboardentry.GetCharFromKey(event))
         self.redraw()
 
     def move_cursor_left(self):
         '''Moves the current cursor position left one character, if able.'''
         if self.cursor_pos > 0:
-          self.cursor_pos -= 1
+            self.cursor_pos -= 1
 
     def move_cursor_right(self):
         '''Moves the current cursor position right one character, if able.'''
         if self.text != "":
-          if self.cursor_pos < len(self.text):
-            self.cursor_pos += 1
+            if self.cursor_pos < len(self.text):
+                self.cursor_pos += 1
 
     def set_cursor_at_beginning(self):
         '''Moves the cursor all the way back to the start of the text.'''
@@ -54,9 +59,9 @@ class CommandEntry:
     def set_cursor_at_end(self):
         '''Moves the cursor all the way to the end of the text.'''
         if len(self.text) != 0:
-          self.cursor_pos = len(self.lines) - 1
+            self.cursor_pos = len(self.lines) - 1
         else:
-          self.cursor_pos = 0
+            self.cursor_pos = 0
 
     def get_cursor_position(self):
         '''Returns the index in the text that the cursor position corresponds to.'''
@@ -65,29 +70,29 @@ class CommandEntry:
     def backspace_at_cursor(self):
         '''Deletes the character before the cursor position.'''
         if not self.cursor_pos == 0:
-          if self.cursor_pos == 1:
-            self.text = self.text[1:]
-          elif self.cursor_pos == len(self.text) - 1:
-            self.text = self.text[:-1]
-          else:
-            self.text = self.text[:self.cursor_pos - 1] + self.text[self.cursor_pos:]
-          self.move_cursor_left()
+            if self.cursor_pos == 1:
+                self.text = self.text[1:]
+            elif self.cursor_pos == len(self.text) - 1:
+                self.text = self.text[:-1]
+            else:
+                self.text = self.text[:self.cursor_pos - 1] + self.text[self.cursor_pos:]
+            self.move_cursor_left()
 
     def delete_at_cursor(self):
         '''Deletes the character at the cursor position.'''
         if self.cursor_pos == 0:
-          self.text = self.text[1:]
+            self.text = self.text[1:]
         elif self.cursor_pos == len(self.text) - 1:
-          self.text = self.text[:-1]
+            self.text = self.text[:-1]
         else:
-          self.text = self.text[:self.cursor_pos] + self.text[self.cursor_pos + 1:]
+            self.text = self.text[:self.cursor_pos] + self.text[self.cursor_pos + 1:]
 
     def insert_char_at_cursor(self, character):
         '''Inserts the given character at the cursor position.'''
         if self.cursor_pos == 0:
-          self.text = character + self.text
+            self.text = character + self.text
         elif self.cursor_pos == len(self.text):
-          self.text = self.text + character
+            self.text = self.text + character
         else:
-          self.text = self.text[:self.cursor_pos] + character + self.text[self.cursor_pos:]
+            self.text = self.text[:self.cursor_pos] + character + self.text[self.cursor_pos:]
         self.move_cursor_right()
