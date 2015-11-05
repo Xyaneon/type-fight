@@ -5,6 +5,7 @@ from pygame.locals import *
 from commandentry import CommandEntry
 from hud import Hud
 from opponent import Opponent
+from player import Player
 
 pygame.init()
 
@@ -22,6 +23,7 @@ screen.set_alpha(None)
 game_surface = pygame.Surface((screen.get_width(), screen.get_height()))
 hud = Hud(screen)
 opponent = Opponent(screen)
+player = Player(screen)
 
 pygame.key.set_repeat(500, 50)
 
@@ -67,6 +69,7 @@ while 1:
     game_surface.fill(pygame.color.Color(0, 0, 0))
     hud_surface = hud.render(c_entry)
     game_surface.blit(opponent.render(), opponent.get_rect())
+    game_surface.blit(player.render(), player.get_rect())
     screen.blit(game_surface, game_surface.get_rect())
     screen.blit(hud_surface, hud_surface.get_rect())
     pygame.display.flip()
