@@ -1,8 +1,9 @@
 #!/bin/python
 
-import os, pygame, pygame.mixer, sys
+import pygame, pygame.mixer, sys
 from pygame.locals import *
 from commandentry import CommandEntry
+from hud import Hud
 
 pygame.init()
 
@@ -18,9 +19,7 @@ flags = 0
 screen = pygame.display.set_mode(window_size, flags)
 screen.set_alpha(None)
 game_surface = pygame.Surface((screen.get_width(), screen.get_height()))
-hud_surface = pygame.Surface((screen.get_width(), screen.get_height()))
-
-hud_bkg_image = pygame.image.load(os.path.join('graphics', 'hud_bkg.png')).convert_alpha()
+hud = Hud(screen)
 
 pygame.key.set_repeat(500, 50)
 
@@ -64,9 +63,7 @@ while 1:
     # Draw graphics
     c_entry.render()
     game_surface.fill(pygame.color.Color(0, 0, 0))
-    hud_surface.fill(pygame.color.Color(0, 0, 0))
-    hud_surface.blit(hud_bkg_image, hud_bkg_image.get_rect())
-    hud_surface.blit(c_entry.surface, (345, 775))
+    hud_surface = hud.render(c_entry)
     screen.blit(game_surface, game_surface.get_rect())
     screen.blit(hud_surface, hud_surface.get_rect())
     pygame.display.flip()
