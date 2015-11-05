@@ -12,6 +12,7 @@ class Opponent:
                                   'opponent_neutral.png')).convert_alpha()
         self.rect = self.opponent_image.get_rect()
         self.updown_juice = 0
+        self.health_percent = 100
 
     def get_rect(self):
         '''Returns a pygame.rect.Rect with size and position info.'''
