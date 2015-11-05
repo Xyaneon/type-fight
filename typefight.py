@@ -48,10 +48,13 @@ while 1:
                 mouse_button = event.button
                 if event.type is MOUSEBUTTONDOWN:
                     # TODO: Mouse button down handling code
+                    pass
                 else:
                     # TODO: Assume mouse button up
+                    pass
             else:
                 # TODO: Handle mouse movement event
+                pass
         elif event.type is KEYDOWN:
             c_entry.handle_keydown_event(event)
     fps_clock.tick(60)
