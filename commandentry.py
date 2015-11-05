@@ -2,6 +2,9 @@
 
 import pygame, sys
 
+prompt_height = 64
+command_font = pygame.font.Font("fonts/Share_Tech_Mono/ShareTechMono-Regular.ttf", 32)
+
 class CommandEntry:
     '''Class for managing the command entry window.'''
     def __init__(self):
