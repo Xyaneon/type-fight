@@ -47,7 +47,7 @@ class CommandEntry:
             if self.text == 'exit':
                 pygame.quit()
                 sys.exit()
-            elif self.text == 'punch':
+            elif self.text in ['punch', 'jab']:
                 opponent.health_percent -= 5
             self.text = ''
             self.cursor_pos = 0
