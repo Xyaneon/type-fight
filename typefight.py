@@ -62,7 +62,7 @@ while 1:
                 # TODO: Handle mouse movement event
                 pass
         elif event.type is KEYDOWN:
-            c_entry.handle_keydown_event(event)
+            c_entry.handle_keydown_event(event, opponent)
 
     # Draw graphics
     c_entry.render()

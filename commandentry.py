@@ -27,9 +27,10 @@ class CommandEntry:
         '''Returns the currently displayed text in the command entry window.'''
         return self.text
 
-    def handle_keydown_event(self, event):
+    def handle_keydown_event(self, event, opponent):
         '''Handles a KEYDOWN event, which is very important for this particular
-        class since it handles text input from the keyboard.'''
+        class since it handles text input from the keyboard.
+        Also takes the Opponent object in case we need to do damage.'''
         if event.key == pygame.K_BACKSPACE:
             # Delete text before cursor.
             self.backspace_at_cursor()
@@ -46,6 +47,8 @@ class CommandEntry:
             if self.text == 'exit':
                 pygame.quit()
                 sys.exit()
+            elif self.text == 'punch':
+                opponent.health_percent -= 5
             self.text = ''
             self.cursor_pos = 0
         else:
