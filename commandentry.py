@@ -47,6 +47,7 @@ class CommandEntry:
                 pygame.quit()
                 sys.exit()
             self.text = ''
+            self.cursor_pos = 0
         else:
             self.insert_char_at_cursor(event.unicode)
         self.render()
