@@ -3,7 +3,10 @@
 import pygame, sys
 
 prompt_height = 64
+pygame.font.init()
 command_font = pygame.font.Font("fonts/Share_Tech_Mono/ShareTechMono-Regular.ttf", 32)
+command_bkg_color = pygame.color.Color(0, 0, 0)
+command_text_color = pygame.color.Color(0, 255, 0)
 
 class CommandEntry:
     '''Class for managing the command entry window.'''
@@ -42,8 +45,8 @@ class CommandEntry:
                 pygame.quit()
                 sys.exit()
         else:
-            self.insert_char_at_cursor(keyboardentry.GetCharFromKey(event))
-        self.redraw()
+            self.insert_char_at_cursor(event.unicode)
+        self.render()
 
     def move_cursor_left(self):
         '''Moves the current cursor position left one character, if able.'''
@@ -104,4 +107,13 @@ class CommandEntry:
     def render(self):
         '''Returns a pygame.Surface containing the rendered command prompt
         window and text.'''
-        # TODO
+        padding = 4
+        self.surface = pygame.Surface((200, 200), pygame.SRCALPHA).copy()
+        self.text_surface = command_font.render(self.text, True, command_text_color)
+        border_rect = self.surface.get_rect().inflate(-padding, -padding).move(padding / 2, padding / 2)
+        pygame.draw.rect(self.surface, command_bkg_color, border_rect)
+        if self.text_surface is not None:
+            text_left_align = padding
+            text_top_align = padding
+            self.surface.blit(self.text_surface, (text_left_align, text_top_align))
+        return self.surface

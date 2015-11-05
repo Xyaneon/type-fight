@@ -9,11 +9,13 @@ pygame.init()
 fps_clock = pygame.time.Clock()
 
 # Game window setup
+window_size = (1080, 911)
 size = width, height = pygame.display.Info().current_w, \
                        pygame.display.Info().current_h
 pygame.display.set_caption("Type Fight!")
-flags = FULLSCREEN | DOUBLEBUF | HWSURFACE
-screen = pygame.display.set_mode((0, 0), flags)
+# Set flags to FULLSCREEN | DOUBLEBUF | HWSURFACE if we add fullscreen support later
+flags = 0
+screen = pygame.display.set_mode(window_size, flags)
 screen.set_alpha(None)
 game_surface = pygame.Surface((screen.get_width(), screen.get_height()))
 hud_surface = pygame.Surface((screen.get_width(), screen.get_height()))
@@ -37,6 +39,7 @@ c_entry = CommandEntry()
 # Main loop code *
 #*****************
 while 1:
+    # Event handling
     for event in pygame.event.get():
         if event.type is QUIT:
             pygame.quit()
@@ -57,4 +60,15 @@ while 1:
                 pass
         elif event.type is KEYDOWN:
             c_entry.handle_keydown_event(event)
+
+    # Draw graphics
+    c_entry.render()
+    game_surface.fill(pygame.color.Color(0, 0, 0))
+    hud_surface.fill(pygame.color.Color(0, 0, 0))
+    hud_surface.blit(c_entry.surface, c_entry.surface.get_rect())
+    screen.blit(game_surface, game_surface.get_rect())
+    screen.blit(hud_surface, hud_surface.get_rect())
+    pygame.display.flip()
+
+    # Proceed to next frame. We are aiming to run at 60 FPS
     fps_clock.tick(60)
