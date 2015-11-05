@@ -29,16 +29,16 @@ class Player:
 
         # Left arm
         self.left_arm_rect = self.left_arm_image.get_rect()
-        la_center_rect = self.rect.copy()
-        la_center_rect.centerx = self.surface.get_rect().centerx - self.left_arm_rect.width / 2
-        la_center_rect.centery = self.surface.get_rect().centery + 15 * math.sin(self.updown_juice)
+        la_center_rect = self.left_arm_rect.copy()
+        la_center_rect.right = self.rect.centerx - 32
+        la_center_rect.top = self.rect.centery + 15 * math.sin(self.updown_juice)
         self.surface.blit(self.left_arm_image, la_center_rect)
 
         # Right arm
         self.right_arm_rect = self.right_arm_image.get_rect()
-        ra_center_rect = self.rect.copy()
-        ra_center_rect.centerx = self.surface.get_rect().centerx + self.right_arm_rect.width / 2
-        ra_center_rect.centery = self.surface.get_rect().centery + 15 * math.sin(self.updown_juice)
+        ra_center_rect = self.right_arm_rect.copy()
+        ra_center_rect.left = self.rect.centerx + 32
+        ra_center_rect.top = self.rect.centery + 15 * math.sin(self.updown_juice)
         self.surface.blit(self.right_arm_image, ra_center_rect)
 
         return self.surface
