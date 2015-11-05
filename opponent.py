@@ -20,10 +20,9 @@ class Opponent:
 
     def render(self):
         '''Returns a pygame.Surface with the rendered opponent.'''
-        # TODO: More advanced manipulation for movement and stuff
         self.rect = self.opponent_image.get_rect()
         self.updown_juice += (2.0 * math.pi) / 60.0
-        self.surface.fill(pygame.color.Color(0, 0, 0))
+        self.surface.fill(pygame.color.Color(0, 0, 0, 0))
         center_rect = self.rect.copy()
         center_rect.centerx = self.surface.get_rect().centerx
         center_rect.centery = self.surface.get_rect().centery + 10 * math.sin(self.updown_juice)
