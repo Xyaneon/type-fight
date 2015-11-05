@@ -41,11 +41,12 @@ class CommandEntry:
         elif event.key == pygame.K_RIGHT:
             self.move_cursor_right()
         elif event.key == pygame.K_RETURN:
-            # Process a command
+            # Process a command and clear the prompt
             # Below is temporary debug code
             if self.text == 'exit':
                 pygame.quit()
                 sys.exit()
+            self.text = ''
         else:
             self.insert_char_at_cursor(event.unicode)
         self.render()
