@@ -1,6 +1,6 @@
 #!/bin/python
 
-import pygame, pygame.mixer
+import pygame, pygame.mixer, sys
 from pygame.locals import *
 from commandentry import CommandEntry
 
@@ -37,7 +37,6 @@ c_entry = CommandEntry()
 # Main loop code *
 #*****************
 while 1:
-    # TODO: Main game loop goes here
     for event in pygame.event.get():
     if event.type is QUIT:
         pygame.quit()

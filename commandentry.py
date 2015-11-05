@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-import pygame
+import pygame, sys
 
 class CommandEntry:
     '''Class for managing the command entry window.'''
@@ -37,6 +37,7 @@ class CommandEntry:
             # Below is temporary debug code
             if self.text == 'exit':
                 pygame.quit()
+                sys.exit()
         else:
             self.insert_char_at_cursor(keyboardentry.GetCharFromKey(event))
         self.redraw()
