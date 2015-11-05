@@ -2,7 +2,7 @@
 
 import math, pygame, sys
 
-prompt_height = 64
+prompt_height = 55
 pygame.font.init()
 command_font = pygame.font.Font("fonts/Share_Tech_Mono/ShareTechMono-Regular.ttf", 32)
 command_bkg_color = pygame.color.Color(0, 0, 0)
@@ -110,9 +110,9 @@ class CommandEntry:
     def render(self):
         '''Returns a pygame.Surface containing the rendered command prompt
         window and text.'''
-        padding = 4
+        padding = 10
         self.cursor_fade_phase += (2.0 * math.pi) / 60.0
-        self.surface = pygame.Surface((385, 55), pygame.SRCALPHA).copy()
+        self.surface = pygame.Surface((385, prompt_height), pygame.SRCALPHA).copy()
 
         self.text_surface = command_font.render('>' + self.text, True, command_text_color)
         # For text cursor
@@ -124,7 +124,7 @@ class CommandEntry:
         self.cursor_surface = self.cursor_surface.convert()
         self.cursor_surface.set_alpha(cursor_alpha)
 
-        border_rect = self.surface.get_rect().inflate(-padding, -padding).move(padding / 2, padding / 2)
+        border_rect = self.surface.get_rect()
         pygame.draw.rect(self.surface, command_bkg_color, border_rect)
         if self.text_surface is not None:
             text_left_align = padding
