@@ -1,6 +1,6 @@
 #!/bin/python
 
-import os, pygame
+import math, os, pygame
 
 class Opponent:
     '''Class representing the opponent the player can see.'''
@@ -11,6 +11,7 @@ class Opponent:
         self.opponent_image = pygame.image.load(os.path.join('graphics',
                                   'opponent_neutral.png')).convert_alpha()
         self.rect = self.opponent_image.get_rect()
+        self.updown_juice = 0
 
     def get_rect(self):
         '''Returns a pygame.rect.Rect with size and position info.'''
@@ -20,6 +21,10 @@ class Opponent:
         '''Returns a pygame.Surface with the rendered opponent.'''
         # TODO: More advanced manipulation for movement and stuff
         self.rect = self.opponent_image.get_rect()
+        self.updown_juice += (2.0 * math.pi) / 60.0
         self.surface.fill(pygame.color.Color(0, 0, 0))
-        self.surface.blit(self.opponent_image, self.opponent_image.get_rect())
+        center_rect = self.rect.copy()
+        center_rect.centerx = self.surface.get_rect().centerx
+        center_rect.centery = self.surface.get_rect().centery + 10 * math.sin(self.updown_juice)
+        self.surface.blit(self.opponent_image, center_rect)
         return self.surface
