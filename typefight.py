@@ -21,7 +21,7 @@ screen = pygame.display.set_mode(window_size, flags)
 screen.set_alpha(None)
 game_surface = pygame.Surface((screen.get_width(), screen.get_height()))
 hud = Hud(screen)
-opponent = Opponent()
+opponent = Opponent(screen)
 
 pygame.key.set_repeat(500, 50)
 

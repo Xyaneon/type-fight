@@ -16,7 +16,7 @@ class Hud:
     def render(self, c_entry):
         '''Returns a pygame.Surface with all the rendered HUD elements.
         Requires a CommandEntry object reference to have render on top.'''
-        self.surface.fill(pygame.color.Color(0, 0, 0))
+        self.surface.fill(pygame.color.Color(0, 0, 0, 0))
         self.surface.blit(self.hud_bkg_image, self.hud_bkg_image.get_rect())
         self.surface.blit(c_entry.surface, (345, 775))
         return self.surface
