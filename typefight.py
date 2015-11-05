@@ -1,6 +1,6 @@
 #!/bin/python
 
-import pygame, pygame.mixer, sys
+import os, pygame, pygame.mixer, sys
 from pygame.locals import *
 from commandentry import CommandEntry
 
@@ -20,7 +20,7 @@ screen.set_alpha(None)
 game_surface = pygame.Surface((screen.get_width(), screen.get_height()))
 hud_surface = pygame.Surface((screen.get_width(), screen.get_height()))
 
-# TODO: Add loading code for custom font(s) here
+hud_bkg_image = pygame.image.load(os.path.join('graphics', 'hud_bkg.png')).convert_alpha()
 
 pygame.key.set_repeat(500, 50)
 
@@ -65,7 +65,8 @@ while 1:
     c_entry.render()
     game_surface.fill(pygame.color.Color(0, 0, 0))
     hud_surface.fill(pygame.color.Color(0, 0, 0))
-    hud_surface.blit(c_entry.surface, c_entry.surface.get_rect())
+    hud_surface.blit(hud_bkg_image, hud_bkg_image.get_rect())
+    hud_surface.blit(c_entry.surface, (345, 775))
     screen.blit(game_surface, game_surface.get_rect())
     screen.blit(hud_surface, hud_surface.get_rect())
     pygame.display.flip()

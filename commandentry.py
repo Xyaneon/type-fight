@@ -108,8 +108,8 @@ class CommandEntry:
         '''Returns a pygame.Surface containing the rendered command prompt
         window and text.'''
         padding = 4
-        self.surface = pygame.Surface((200, 200), pygame.SRCALPHA).copy()
-        self.text_surface = command_font.render(self.text, True, command_text_color)
+        self.surface = pygame.Surface((385, 55), pygame.SRCALPHA).copy()
+        self.text_surface = command_font.render('>' + self.text + '_', True, command_text_color)
         border_rect = self.surface.get_rect().inflate(-padding, -padding).move(padding / 2, padding / 2)
         pygame.draw.rect(self.surface, command_bkg_color, border_rect)
         if self.text_surface is not None:
