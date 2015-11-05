@@ -38,20 +38,20 @@ c_entry = CommandEntry()
 #*****************
 while 1:
     for event in pygame.event.get():
-    if event.type is QUIT:
-        pygame.quit()
-        sys.exit()
-    elif event.type in mouse_list:
-        mouse_x, mouse_y = event.pos
-        mouse_event = event
-        if event.type in mouse_button_list:
-            mouse_button = event.button
-            if event.type is MOUSEBUTTONDOWN:
-                # TODO: Mouse button down handling code
+        if event.type is QUIT:
+            pygame.quit()
+            sys.exit()
+        elif event.type in mouse_list:
+            mouse_x, mouse_y = event.pos
+            mouse_event = event
+            if event.type in mouse_button_list:
+                mouse_button = event.button
+                if event.type is MOUSEBUTTONDOWN:
+                    # TODO: Mouse button down handling code
+                else:
+                    # TODO: Assume mouse button up
             else:
-                # TODO: Assume mouse button up
-        else:
-            # TODO: Handle mouse movement event
-    elif event.type is KEYDOWN:
-        c_entry.handle_keydown_event(event)
+                # TODO: Handle mouse movement event
+        elif event.type is KEYDOWN:
+            c_entry.handle_keydown_event(event)
     fps_clock.tick(60)
