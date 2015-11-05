@@ -97,3 +97,8 @@ class CommandEntry:
         else:
             self.text = self.text[:self.cursor_pos] + character + self.text[self.cursor_pos:]
         self.move_cursor_right()
+
+    def render(self):
+        '''Returns a pygame.Surface containing the rendered command prompt
+        window and text.'''
+        # TODO
