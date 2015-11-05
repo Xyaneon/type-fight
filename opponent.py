@@ -13,6 +13,8 @@ class Opponent:
         self.rect = self.opponent_image.get_rect()
         self.updown_juice = 0
         self.health_percent = 100
+        self.attack_delay_frames = 0
+        self.state = idle
 
     def get_rect(self):
         '''Returns a pygame.rect.Rect with size and position info.'''
