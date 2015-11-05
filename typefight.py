@@ -2,6 +2,7 @@
 
 import pygame, pygame.mixer
 from pygame.locals import *
+from commandentry import CommandEntry
 
 pygame.init()
 
@@ -29,6 +30,9 @@ pygame.event.set_allowed([QUIT, MOUSEMOTION, MOUSEBUTTONDOWN, MOUSEBUTTONUP])
 # Pygame mixer setup for sounds
 pygame.mixer.init()
 
+# Main objects setup
+c_entry = CommandEntry()
+
 #*****************
 # Main loop code *
 #*****************
@@ -50,5 +54,5 @@ while 1:
         else:
             # TODO: Handle mouse movement event
     elif event.type is KEYDOWN:
-        # TODO: Handle key press event
+        c_entry.handle_keydown_event(event)
     fps_clock.tick(60)
