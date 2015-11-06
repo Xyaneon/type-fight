@@ -35,6 +35,8 @@ pygame.event.set_allowed([QUIT, MOUSEMOTION, MOUSEBUTTONDOWN, MOUSEBUTTONUP])
 
 # Pygame mixer setup for sounds
 pygame.mixer.init()
+mus_fight = pygame.mixer.music.load(os.path.join('music', 'Harmful or Fatal.mp3'))
+pygame.mixer.music.play()
 
 # Main objects setup
 c_entry = CommandEntry()

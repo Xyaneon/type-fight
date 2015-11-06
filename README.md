@@ -10,3 +10,15 @@ This is a first-person fighting game where you control your robot fighter with a
 
 ## License
 Currently licensed under the GNU GPLv3. See the LICENSE file for details.
+
+## Other Credits
+
+### Music
+
+For our background music, we are currently using:
+
+*"Harmful or Fatal" by Kevin MacLeod (incompetech.com)*
+
+*Licensed under Creative Commons: By Attribution 3.0*
+
+*http://creativecommons.org/licenses/by/3.0/ *
