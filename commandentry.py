@@ -42,18 +42,21 @@ class CommandEntry:
         elif event.key == pygame.K_RIGHT:
             self.move_cursor_right()
         elif event.key == pygame.K_RETURN:
-            # Process a command and clear the prompt
-            # Below is temporary debug code
-            if self.text == 'exit':
-                pygame.quit()
-                sys.exit()
-            elif self.text in ['punch', 'jab']:
-                opponent.health_percent -= 5
-            self.text = ''
-            self.cursor_pos = 0
+            self.process_command(opponent)
         else:
             self.insert_char_at_cursor(event.unicode)
         self.render()
+
+    def process_command(self, opponent):
+        '''Processes the entered command and modifies Opponent if needed.'''
+        if self.text == 'exit':
+            # Temporary debug command to quit the game
+            pygame.quit()
+            sys.exit()
+        elif self.text in ['punch', 'jab']:
+            opponent.health_percent -= 5
+        self.text = ''
+        self.cursor_pos = 0
 
     def move_cursor_left(self):
         '''Moves the current cursor position left one character, if able.'''
