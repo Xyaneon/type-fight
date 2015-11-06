@@ -23,7 +23,7 @@ class Opponent:
 
     def take_damage(self, damage):
         '''Deals damage to this Opponent.'''
-        self.health_percent -= 5
+        self.health_percent -= damage
         if self.health_percent <= 0:
             self.health_percent = 0
             self.state = 'defeated'
