@@ -27,14 +27,19 @@ class Opponent:
         if self.health_percent <= 0:
             self.health_percent = 0
             self.state = 'defeated'
+            self.updown_juice = 0
 
     def render(self):
         '''Returns a pygame.Surface with the rendered opponent.'''
         self.rect = self.opponent_image.get_rect()
-        self.updown_juice += (2.0 * math.pi) / 60.0
         self.surface.fill(pygame.color.Color(0, 0, 0, 0))
         center_rect = self.rect.copy()
         center_rect.centerx = self.surface.get_rect().centerx
-        center_rect.centery = self.surface.get_rect().centery + 10 * math.sin(self.updown_juice)
+        if self.state == 'idle':
+            self.updown_juice += (2.0 * math.pi) / 60.0
+            center_rect.centery = self.surface.get_rect().centery + 10 * math.sin(self.updown_juice)
+        elif self.state == 'defeated':
+            self.updown_juice += 5
+            center_rect.centery = self.surface.get_rect().centery + self.updown_juice
         self.surface.blit(self.opponent_image, center_rect)
         return self.surface
