@@ -21,6 +21,13 @@ class Opponent:
         '''Returns a pygame.rect.Rect with size and position info.'''
         return self.rect
 
+    def take_damage(self, damage):
+        '''Deals damage to this Opponent.'''
+        self.health_percent -= 5
+        if self.health_percent <= 0:
+            self.health_percent = 0
+            self.state = 'defeated'
+
     def render(self):
         '''Returns a pygame.Surface with the rendered opponent.'''
         self.rect = self.opponent_image.get_rect()

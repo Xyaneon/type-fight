@@ -61,8 +61,7 @@ class CommandEntry:
             sys.exit()
         elif self.text in ['punch', 'jab']:
             snd_punch.play()
-            opponent.health_percent -= 5
-            if opponent.health_percent < 0: opponent.health_percent = 0
+            opponent.take_damage(5)
         self.text = ''
         self.cursor_pos = 0
 
