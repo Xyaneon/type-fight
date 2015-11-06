@@ -65,3 +65,8 @@ class Opponent:
             center_rect.centery = self.surface.get_rect().centery + self.updown_juice
         self.surface.blit(self.opponent_image, center_rect)
         return self.surface
+
+class TrainingDummy(Opponent):
+    '''Opponent subclass used for the tutorial level.'''
+    # TODO: Implement attack patterns via function overrides.
+    pass
