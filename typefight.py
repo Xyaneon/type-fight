@@ -22,7 +22,6 @@ screen = pygame.display.set_mode(window_size, flags)
 screen.set_alpha(None)
 game_surface = pygame.Surface((screen.get_width(), screen.get_height()))
 hud = Hud(screen)
-opponent = Opponent(screen)
 player = Player(screen)
 fight_bkg = pygame.image.load(os.path.join('graphics', 'fight_bkg.png')).convert()
 
@@ -44,41 +43,45 @@ except Exception as e:
 # Main objects setup
 c_entry = CommandEntry()
 
-#*****************
-# Main loop code *
-#*****************
-while 1:
-    # Event handling
-    for event in pygame.event.get():
-        if event.type is QUIT:
-            pygame.quit()
-            sys.exit()
-        elif event.type in mouse_list:
-            mouse_x, mouse_y = event.pos
-            mouse_event = event
-            if event.type in mouse_button_list:
-                mouse_button = event.button
-                if event.type is MOUSEBUTTONDOWN:
-                    # TODO: Mouse button down handling code
-                    pass
+def run_fight(opponent=Opponent(screen)):
+    '''Main loop code for each fight. Takes an Opponent to use.'''
+    while 1:
+        # Event handling
+        for event in pygame.event.get():
+            if event.type is QUIT:
+                pygame.quit()
+                sys.exit()
+            elif event.type in mouse_list:
+                mouse_x, mouse_y = event.pos
+                mouse_event = event
+                if event.type in mouse_button_list:
+                    mouse_button = event.button
+                    if event.type is MOUSEBUTTONDOWN:
+                        # TODO: Mouse button down handling code
+                        pass
+                    else:
+                        # TODO: Assume mouse button up
+                        pass
                 else:
-                    # TODO: Assume mouse button up
+                    # TODO: Handle mouse movement event
                     pass
-            else:
-                # TODO: Handle mouse movement event
-                pass
-        elif event.type is KEYDOWN:
-            c_entry.handle_keydown_event(event, opponent)
+            elif event.type is KEYDOWN:
+                c_entry.handle_keydown_event(event, opponent)
 
-    # Draw graphics
-    c_entry.render()
-    game_surface.blit(fight_bkg, game_surface.get_rect())
-    hud_surface = hud.render(c_entry, player.health_percent, opponent.health_percent)
-    game_surface.blit(opponent.render(), opponent.get_rect())
-    game_surface.blit(player.render(), player.get_rect())
-    screen.blit(game_surface, game_surface.get_rect())
-    screen.blit(hud_surface, hud_surface.get_rect())
-    pygame.display.flip()
+        # Draw graphics
+        c_entry.render()
+        game_surface.blit(fight_bkg, game_surface.get_rect())
+        hud_surface = hud.render(c_entry, player.health_percent, opponent.health_percent)
+        game_surface.blit(opponent.render(), opponent.get_rect())
+        game_surface.blit(player.render(), player.get_rect())
+        screen.blit(game_surface, game_surface.get_rect())
+        screen.blit(hud_surface, hud_surface.get_rect())
+        pygame.display.flip()
 
-    # Proceed to next frame. We are aiming to run at 60 FPS
-    fps_clock.tick(60)
+        # Proceed to next frame. We are aiming to run at 60 FPS
+        fps_clock.tick(60)
+
+#*****************
+# Main game code *
+#*****************
+run_fight(Opponent(screen))
