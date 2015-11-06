@@ -26,7 +26,7 @@ class Player:
 
     def render(self):
         '''Returns a pygame.Surface with the rendered player parts.'''
-        self.updown_juice += (2.0 * math.pi) / 60.0
+        self.updown_juice += (2.0 * math.pi) / 45.0
         self.surface.fill(pygame.color.Color(0, 0, 0, 0))
 
         # Left arm
