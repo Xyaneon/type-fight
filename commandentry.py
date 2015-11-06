@@ -62,6 +62,9 @@ class CommandEntry:
         elif self.text in ['punch', 'jab']:
             snd_punch.play()
             opponent.take_damage(5)
+        elif self.text == 'haymaker':
+            snd_punch.play()
+            opponent.take_damage(8)
         self.text = ''
         self.cursor_pos = 0
 
