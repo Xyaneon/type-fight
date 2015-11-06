@@ -1,6 +1,6 @@
 #!/bin/python
 
-import pygame, pygame.mixer, sys
+import os, pygame, pygame.mixer, sys
 from pygame.locals import *
 from commandentry import CommandEntry
 from hud import Hud
@@ -24,6 +24,7 @@ game_surface = pygame.Surface((screen.get_width(), screen.get_height()))
 hud = Hud(screen)
 opponent = Opponent(screen)
 player = Player(screen)
+fight_bkg = pygame.image.load(os.path.join('graphics', 'fight_bkg.png')).convert()
 
 pygame.key.set_repeat(500, 50)
 
@@ -66,7 +67,7 @@ while 1:
 
     # Draw graphics
     c_entry.render()
-    game_surface.fill(pygame.color.Color(0, 0, 0))
+    game_surface.blit(fight_bkg, game_surface.get_rect())
     hud_surface = hud.render(c_entry, player.health_percent, opponent.health_percent)
     game_surface.blit(opponent.render(), opponent.get_rect())
     game_surface.blit(player.render(), player.get_rect())
