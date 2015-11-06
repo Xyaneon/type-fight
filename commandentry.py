@@ -1,12 +1,16 @@
 #!/bin/python
 
-import math, pygame, sys
+import math, os, pygame, sys
 
 prompt_height = 55
 pygame.font.init()
 command_font = pygame.font.Font("fonts/Share_Tech_Mono/ShareTechMono-Regular.ttf", 32)
 command_bkg_color = pygame.color.Color(0, 0, 0)
 command_text_color = pygame.color.Color(0, 255, 0)
+
+# Sound effects for attacks
+pygame.mixer.init()
+snd_punch = pygame.mixer.Sound(os.path.join('sounds', 'punch.wav'))
 
 class CommandEntry:
     '''Class for managing the command entry window.'''
@@ -54,6 +58,7 @@ class CommandEntry:
             pygame.quit()
             sys.exit()
         elif self.text in ['punch', 'jab']:
+            snd_punch.play()
             opponent.health_percent -= 5
         self.text = ''
         self.cursor_pos = 0
