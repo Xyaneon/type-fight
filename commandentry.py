@@ -18,7 +18,7 @@ class CommandEntry:
         self.rect = None
         self.surface = None
         self.text = ''
-        self.text_surface = None
+        self.text_surface = command_font.render('>', True, command_text_color)
         self.cursor_surface = None
         self.cursor_pos = 0
         self.cursor_fade_phase = 0
@@ -49,7 +49,9 @@ class CommandEntry:
             self.process_command(opponent)
         else:
             self.insert_char_at_cursor(event.unicode)
-        self.render()
+        # Update rendered command text after a keypress instead of doing it
+        # continually in render()
+        self.text_surface = command_font.render('>' + self.text, True, command_text_color)
 
     def process_command(self, opponent):
         '''Processes the entered command and modifies Opponent if needed.'''
@@ -127,7 +129,6 @@ class CommandEntry:
         self.cursor_fade_phase += (2.0 * math.pi) / 60.0
         self.surface = pygame.Surface((385, prompt_height), pygame.SRCALPHA).copy()
 
-        self.text_surface = command_font.render('>' + self.text, True, command_text_color)
         # For text cursor
         cursor_draw_pos = command_font.size('>' + self.text[:self.cursor_pos])[0]
         cursor_color = command_text_color
