@@ -24,6 +24,7 @@ game_surface = pygame.Surface((screen.get_width(), screen.get_height()))
 hud = Hud(screen)
 player = Player(screen)
 fight_bkg = pygame.image.load(os.path.join('graphics', 'fight_bkg.png')).convert()
+win_fg = pygame.image.load(os.path.join('graphics', 'win_fg.png')).convert_alpha()
 
 pygame.key.set_repeat(500, 50)
 
@@ -76,6 +77,8 @@ def run_fight(opponent=Opponent(screen)):
         game_surface.blit(player.render(), player.get_rect())
         screen.blit(game_surface, game_surface.get_rect())
         screen.blit(hud_surface, hud_surface.get_rect())
+        if opponent.state == 'defeated':
+            screen.blit(win_fg, screen.get_rect())
         pygame.display.flip()
 
         # Proceed to next frame. We are aiming to run at 60 FPS
