@@ -31,10 +31,10 @@ class CommandEntry:
         '''Returns the currently displayed text in the command entry window.'''
         return self.text
 
-    def handle_keydown_event(self, event, opponent):
+    def handle_keydown_event(self, event, player, opponent):
         '''Handles a KEYDOWN event, which is very important for this particular
         class since it handles text input from the keyboard.
-        Also takes the Opponent object in case we need to do damage.'''
+        Also takes the Player and Opponent objects for modification.'''
         if event.key == pygame.K_BACKSPACE:
             # Delete text before cursor.
             self.backspace_at_cursor()
@@ -46,19 +46,27 @@ class CommandEntry:
         elif event.key == pygame.K_RIGHT:
             self.move_cursor_right()
         elif event.key == pygame.K_RETURN:
-            self.process_command(opponent)
+            self.process_command(player, opponent)
         else:
             self.insert_char_at_cursor(event.unicode)
         # Update rendered command text after a keypress instead of doing it
         # continually in render()
         self.text_surface = command_font.render('>' + self.text, True, command_text_color)
 
-    def process_command(self, opponent):
-        '''Processes the entered command and modifies Opponent if needed.'''
+    def process_command(self, player, opponent):
+        '''Processes the entered command and modifies Player and Opponent if
+        needed.'''
         if self.text == 'exit':
             # Temporary debug command to quit the game
             pygame.quit()
             sys.exit()
+        elif self.text in ['forfeit', 'give up', 'you win', 'seppuku', 'hara kiri']:
+            # Temporary debug command to kill yourself
+            player.take_damage(100, 'both')
+        elif self.text in ['fatality', 'obliterate', 'instakill', 'I win']:
+            # Temporary debug command to defeat your opponent instantly
+            snd_punch.play()
+            opponent.take_damage(100)
         elif self.text in ['punch', 'jab']:
             snd_punch.play()
             opponent.take_damage(5)

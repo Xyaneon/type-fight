@@ -57,7 +57,7 @@ class Opponent:
         self.state_transition('damaged', 0.25)
         if self.health_percent <= 0:
             self.health_percent = 0
-            self.state = 'defeated'
+            self.state_transition('defeated', 1)
             self.updown_juice = 0
 
     def state_transition(self, state, state_seconds):
