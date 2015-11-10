@@ -19,10 +19,36 @@ class Player:
         self.rect = self.surface.get_rect()
         self.updown_juice = 0
         self.health_percent = 100
+        self.left_arm_state = 'idle'
+        self.right_arm_state = 'idle'
 
     def get_rect(self):
         '''Returns a pygame.Rect representing the rendered surface Rect.'''
         return self.rect
+
+    def take_damage(self, damage, direction):
+        '''Deals damage to this Player.'''
+        if direction == 'left':
+            if self.left_arm_state == 'blocking':
+                return
+            else:
+                self.health_percent -= damage
+        if direction == 'right':
+            if self.right_arm_state == 'blocking':
+                return
+            else:
+                self.health_percent -= damage
+        if direction == 'both':
+            if not self.left_arm_state == 'blocking':
+                self.health_percent -= int(math.floor(damage / 2.0))
+            if not self.right_arm_state == 'blocking':
+                self.health_percent -= int(math.floor(damage / 2.0))
+        self.health_percent -= damage
+        if self.health_percent <= 0:
+            self.health_percent = 0
+            self.left_arm_state = 'defeated'
+            self.right_arm_state = 'defeated'
+            self.updown_juice = 0
 
     def render(self):
         '''Returns a pygame.Surface with the rendered player parts.'''

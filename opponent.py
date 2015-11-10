@@ -2,6 +2,10 @@
 
 import math, os, pygame
 
+# Sound effects for attacks
+pygame.mixer.init()
+snd_punch = pygame.mixer.Sound(os.path.join('sounds', 'punch.wav'))
+
 class Opponent:
     '''Class representing the opponent the player can see.'''
     def __init__(self, screen):
@@ -36,9 +40,11 @@ class Opponent:
         self.state = state
         self.state_frames_remaining = int(state_seconds * 60)
 
-    def update_state(self):
+    def update_state(self, player):
         '''Implements a simple state machine for determing the Opponent's
-        next state and how much more time remains in the current one.'''
+        next state and how much more time remains in the current one.
+        Also takes a Player instance in case damage needs to be dealt as a
+        result of an attack.'''
         if self.state not in ['defeated']:
             self.state_frames_remaining -= 1
             if self.state_frames_remaining <= 0:
@@ -48,7 +54,8 @@ class Opponent:
                 elif self.state == 'damaged':
                     self.state_transition('idle', 2)
                 if self.state == 'charging':
-                    # TODO: implement an attack here
+                    player.take_damage(5, 'left')
+                    snd_punch.play()
                     self.state_transition('idle', 2)
 
     def render(self):

@@ -69,6 +69,9 @@ def run_fight(opponent=Opponent(screen)):
             elif event.type is KEYDOWN:
                 c_entry.handle_keydown_event(event, opponent)
 
+        # State updating
+        opponent.update_state(player)
+
         # Draw graphics
         c_entry.render()
         game_surface.blit(fight_bkg, game_surface.get_rect())
