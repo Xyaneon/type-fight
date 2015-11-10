@@ -12,8 +12,33 @@ class Opponent:
         self.surface = pygame.Surface((screen.get_width(),
                                        screen.get_height()),
                                       pygame.SRCALPHA).copy()
-        self.opponent_image = pygame.image.load(os.path.join('graphics',
+        # Asset loading
+        self.image_neutral = pygame.image.load(os.path.join('graphics', 'Mockup',
                                   'opponent_neutral.png')).convert_alpha()
+        self.image_block_left = pygame.image.load(os.path.join('graphics', 'Mockup',
+                                  'opponent_block_left.png')).convert_alpha()
+        self.image_block_right = pygame.image.load(os.path.join('graphics', 'Mockup',
+                                  'opponent_block_right.png')).convert_alpha()
+        self.image_block_both = pygame.image.load(os.path.join('graphics', 'Mockup',
+                                  'opponent_block_both.png')).convert_alpha()
+        self.image_charging_left = pygame.image.load(os.path.join('graphics', 'Mockup',
+                                  'opponent_charging_left.png')).convert_alpha()
+        self.image_charging_right = pygame.image.load(os.path.join('graphics', 'Mockup',
+                                  'opponent_charging_right.png')).convert_alpha()
+        self.image_charging_both = pygame.image.load(os.path.join('graphics', 'Mockup',
+                                  'opponent_charging_both.png')).convert_alpha()
+        self.image_attack_left = pygame.image.load(os.path.join('graphics', 'Mockup',
+                                  'opponent_attack_left.png')).convert_alpha()
+        self.image_attack_right = pygame.image.load(os.path.join('graphics', 'Mockup',
+                                  'opponent_attack_right.png')).convert_alpha()
+        self.image_attack_both = pygame.image.load(os.path.join('graphics', 'Mockup',
+                                  'opponent_attack_both.png')).convert_alpha()
+        self.image_damaged = pygame.image.load(os.path.join('graphics', 'Mockup',
+                                  'opponent_damaged.png')).convert_alpha()
+        self.image_defeated = pygame.image.load(os.path.join('graphics', 'Mockup',
+                                  'opponent_defeated.png')).convert_alpha()
+        # Member variable setup
+        self.opponent_image = self.image_neutral
         self.rect = self.opponent_image.get_rect()
         self.updown_juice = 0
         self.health_percent = 100
@@ -29,7 +54,7 @@ class Opponent:
     def take_damage(self, damage):
         '''Deals damage to this Opponent.'''
         self.health_percent -= damage
-        self.state_transition('damaged', 0.5)
+        self.state_transition('damaged', 0.25)
         if self.health_percent <= 0:
             self.health_percent = 0
             self.state = 'defeated'
@@ -38,7 +63,31 @@ class Opponent:
     def state_transition(self, state, state_seconds):
         '''Go into the next state for so many seconds.'''
         self.state = state
-        self.state_frames_remaining = int(state_seconds * 60)
+        if state == 'idle':
+            self.opponent_image = self.image_neutral
+        if state == 'block_left':
+            self.opponent_image = self.image_block_left
+        if state == 'block_right':
+            self.opponent_image = self.image_block_right
+        if state == 'block_both':
+            self.opponent_image = self.image_block_both
+        if state == 'charging_left':
+            self.opponent_image = self.image_charging_left
+        if state == 'charging_right':
+            self.opponent_image = self.image_charging_right
+        if state == 'charging_both':
+            self.opponent_image = self.image_charging_both
+        if state == 'attack_left':
+            self.opponent_image = self.image_attack_left
+        if state == 'attack_right':
+            self.opponent_image = self.image_attack_right
+        if state == 'attack_both':
+            self.opponent_image = self.image_attack_both
+        if state == 'damaged':
+            self.opponent_image = self.image_damaged
+        if state == 'defeated':
+            self.opponent_image = self.image_defeated
+        self.state_frames_remaining = int(math.floor(state_seconds * 60.0))
 
     def update_state(self, player):
         '''Implements a simple state machine for determing the Opponent's
@@ -50,12 +99,14 @@ class Opponent:
             if self.state_frames_remaining <= 0:
                 if self.state == 'idle':
                     # Start charging an attack
-                    self.state_transition('charging', 3)
+                    self.state_transition('charging_left', 3)
                 elif self.state == 'damaged':
                     self.state_transition('idle', 2)
-                if self.state == 'charging':
+                elif self.state == 'charging_left':
                     player.take_damage(5, 'left')
                     snd_punch.play()
+                    self.state_transition('attack_left', 0.25)
+                elif self.state == 'attack_left':
                     self.state_transition('idle', 2)
 
     def render(self):
@@ -64,12 +115,15 @@ class Opponent:
         self.surface.fill(pygame.color.Color(0, 0, 0, 0))
         center_rect = self.rect.copy()
         center_rect.centerx = self.surface.get_rect().centerx
-        if self.state in ['idle', 'damaged', 'charging']:
+        if self.state in ['idle', 'damaged', 'charging_left', 'charging_right']:
             self.updown_juice += (2.0 * math.pi) / 60.0
             center_rect.centery = self.surface.get_rect().centery + 10 * math.sin(self.updown_juice)
         elif self.state == 'defeated':
             self.updown_juice += 5
             center_rect.centery = self.surface.get_rect().centery + self.updown_juice
+        else:
+            self.updown_juice = 0
+            center_rect.centery = self.surface.get_rect().centery
         self.surface.blit(self.opponent_image, center_rect)
         return self.surface
 
