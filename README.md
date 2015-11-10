@@ -17,8 +17,10 @@ Currently licensed under the GNU GPLv3. See the LICENSE file for details.
 
 For our background music, we are currently using:
 
-*"Harmful or Fatal" by Kevin MacLeod (incompetech.com)*
+*"Harmful or Fatal" by Kevin MacLeod (incompetech.com)*<br />
+*Licensed under Creative Commons: By Attribution 3.0*<br />
+http://creativecommons.org/licenses/by/3.0/
 
-*Licensed under Creative Commons: By Attribution 3.0*
+### Contributors
 
-*http://creativecommons.org/licenses/by/3.0/ *
+We would also like to give thanks to Kamil Jarosz ([kjarosz](https://github.com/kjarosz)) for his compatibility patches for Windows.
