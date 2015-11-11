@@ -60,22 +60,22 @@ class CommandEntry:
             # Temporary debug command to quit the game
             pygame.quit()
             sys.exit()
-        elif self.text in ['forfeit', 'give up', 'you win', 'seppuku', 'hara kiri']:
+        elif self.text in ['forfeit', 'suicide', 'give up', 'you win', 'seppuku', 'hara kiri']:
             # Temporary debug command to kill yourself
             player.take_damage(100, 'both')
-        elif self.text in ['fatality', 'obliterate', 'instakill', 'I win']:
+        elif self.text in ['fatality', 'obliterate', 'instakill', 'I win', 'murderize']:
             # Temporary debug command to defeat your opponent instantly
             snd_punch.play()
-            opponent.take_damage(100)
+            opponent.take_damage(100, 'center')
         elif self.text in ['punch', 'jab']:
             snd_punch.play()
-            opponent.take_damage(5)
+            opponent.take_damage(5, 'center')
         elif self.text == 'haymaker':
             snd_punch.play()
-            opponent.take_damage(8)
+            opponent.take_damage(8, 'center')
         elif self.text in ['open palm thrust', 'op']:
             snd_punch.play()
-            opponent.take_damage(2)
+            opponent.take_damage(2, 'center')
         self.text = ''
         self.cursor_pos = 0
 

@@ -1,6 +1,6 @@
 #!/bin/python
 
-import math, os, pygame
+import math, os, pygame, random
 
 # Sound effects for attacks
 pygame.mixer.init()
@@ -44,21 +44,24 @@ class Opponent:
         self.health_percent = 100
         self.attack_delay_frames = 0
         self.state = 'idle'
-        self.state_frames_remaining = 120
+        self.state_frames_remaining = 60
         self.weak_spots = []
 
     def get_rect(self):
         '''Returns a pygame.rect.Rect with size and position info.'''
         return self.rect
 
-    def take_damage(self, damage):
+    def take_damage(self, damage, direction):
         '''Deals damage to this Opponent.'''
-        self.health_percent -= damage
-        self.state_transition('damaged', 0.25)
-        if self.health_percent <= 0:
-            self.health_percent = 0
-            self.state_transition('defeated', 1)
-            self.updown_juice = 0
+        if not ((self.state == 'block_left' and direction == 'left') or \
+                (self.state == 'block_right' and direction == 'right') or \
+                (self.state == 'block_both' and direction == 'center')):
+            self.health_percent -= damage
+            self.state_transition('damaged', 0.25)
+            if self.health_percent <= 0:
+                self.health_percent = 0
+                self.state_transition('defeated', 1)
+                self.updown_juice = 0
 
     def state_transition(self, state, state_seconds):
         '''Go into the next state for so many seconds.'''
@@ -98,16 +101,32 @@ class Opponent:
             self.state_frames_remaining -= 1
             if self.state_frames_remaining <= 0:
                 if self.state == 'idle':
-                    # Start charging an attack
-                    self.state_transition('charging_left', 3)
+                    # Start charging an attack or block; showcase possibilities
+                    action_list = ['charging_left',
+                                   'charging_right',
+                                   'charging_both',
+                                   'block_left',
+                                   'block_right',
+                                   'block_both']
+                    self.state_transition(random.choice(action_list), 1)
                 elif self.state == 'damaged':
                     self.state_transition('idle', 2)
                 elif self.state == 'charging_left':
                     player.take_damage(5, 'left')
                     snd_punch.play()
                     self.state_transition('attack_left', 0.25)
-                elif self.state == 'attack_left':
-                    self.state_transition('idle', 2)
+                elif self.state == 'charging_right':
+                    player.take_damage(5, 'right')
+                    snd_punch.play()
+                    self.state_transition('attack_right', 0.25)
+                elif self.state == 'charging_both':
+                    player.take_damage(5, 'both')
+                    snd_punch.play()
+                    self.state_transition('attack_both', 0.25)
+                elif self.state in ['block_left', 'block_right', 'block_both']:
+                    self.state_transition(random.choice(['idle', 'charging_left', 'charging_right', 'charging_both']), 1)
+                elif self.state in ['attack_left', 'attack_right', 'attack_both']:
+                    self.state_transition('idle', 1)
 
     def render(self):
         '''Returns a pygame.Surface with the rendered opponent.'''
