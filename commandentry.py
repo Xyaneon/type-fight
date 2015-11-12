@@ -67,15 +67,24 @@ class CommandEntry:
             # Temporary debug command to defeat your opponent instantly
             snd_punch.play()
             opponent.take_damage(100, 'center')
-        elif self.text in ['punch', 'jab']:
-            snd_punch.play()
-            opponent.take_damage(5, 'center')
-        elif self.text == 'haymaker':
-            snd_punch.play()
-            opponent.take_damage(8, 'center')
-        elif self.text in ['open palm thrust', 'op']:
-            snd_punch.play()
-            opponent.take_damage(2, 'center')
+        else:
+            # Treat this as an actual attack command and get the direction
+            attack_direction = self.text.strip().split()[-1]
+            if attack_direction not in ['left', 'right', 'center']:
+                attack_direction = 'center'
+                attack_command = self.text
+            else:
+                attack_command = ' '.join(self.text.strip().split()[:-1])
+            
+            if attack_command in ['punch', 'jab']:
+                snd_punch.play()
+                opponent.take_damage(5, attack_direction)
+            elif attack_command == 'haymaker':
+                snd_punch.play()
+                opponent.take_damage(8, attack_direction)
+            elif attack_command in ['open palm thrust', 'op']:
+                snd_punch.play()
+                opponent.take_damage(2, attack_direction)
         self.text = ''
         self.cursor_pos = 0
 
