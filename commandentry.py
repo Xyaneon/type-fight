@@ -75,14 +75,14 @@ class CommandEntry:
                 attack_command = self.text
             else:
                 attack_command = ' '.join(self.text.strip().split()[:-1])
-            
+
             if attack_command in ['punch', 'jab']:
                 snd_punch.play()
                 opponent.take_damage(5, attack_direction)
             elif attack_command == 'haymaker':
                 snd_punch.play()
                 opponent.take_damage(8, attack_direction)
-            elif attack_command in ['open palm thrust', 'op']:
+            elif attack_command in ['open palm thrust', 'open palm strike', 'op']:
                 snd_punch.play()
                 opponent.take_damage(2, attack_direction)
         self.text = ''
