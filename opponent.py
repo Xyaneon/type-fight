@@ -40,6 +40,10 @@ class Opponent:
                                   'opponent_damaged_left.png')).convert_alpha()
         self.image_damaged_right = pygame.image.load(os.path.join('graphics', img_folder,
                                   'opponent_damaged_right.png')).convert_alpha()
+        self.image_damaged_up = pygame.image.load(os.path.join('graphics', img_folder,
+                                  'opponent_damaged_up.png')).convert_alpha()
+        self.image_damaged_down = pygame.image.load(os.path.join('graphics', img_folder,
+                                  'opponent_damaged_down.png')).convert_alpha()
         self.image_defeated = pygame.image.load(os.path.join('graphics', img_folder,
                                   'opponent_defeated.png')).convert_alpha()
         # Member variable setup
@@ -100,7 +104,9 @@ class Opponent:
         if state == 'attack_both':
             self.opponent_image = self.image_attack_both
         if state == 'damaged':
-            self.opponent_image = self.image_damaged
+            self.opponent_image = random.choice([self.image_damaged,
+                                                 self.image_damaged_up,
+                                                 self.image_damaged_down])
         if state == 'defeated':
             self.opponent_image = self.image_defeated
         self.state_frames_remaining = int(math.floor(state_seconds * 60.0))
