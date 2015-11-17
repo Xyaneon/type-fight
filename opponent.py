@@ -13,29 +13,34 @@ class Opponent:
                                        screen.get_height()),
                                       pygame.SRCALPHA).copy()
         # Asset loading
-        self.image_neutral = pygame.image.load(os.path.join('graphics', 'Mockup',
+        img_folder = 'Mockup'
+        self.image_neutral = pygame.image.load(os.path.join('graphics', img_folder,
                                   'opponent_neutral.png')).convert_alpha()
-        self.image_block_left = pygame.image.load(os.path.join('graphics', 'Mockup',
+        self.image_block_left = pygame.image.load(os.path.join('graphics', img_folder,
                                   'opponent_block_left.png')).convert_alpha()
-        self.image_block_right = pygame.image.load(os.path.join('graphics', 'Mockup',
+        self.image_block_right = pygame.image.load(os.path.join('graphics', img_folder,
                                   'opponent_block_right.png')).convert_alpha()
-        self.image_block_both = pygame.image.load(os.path.join('graphics', 'Mockup',
+        self.image_block_both = pygame.image.load(os.path.join('graphics', img_folder,
                                   'opponent_block_both.png')).convert_alpha()
-        self.image_charging_left = pygame.image.load(os.path.join('graphics', 'Mockup',
+        self.image_charging_left = pygame.image.load(os.path.join('graphics', img_folder,
                                   'opponent_charging_left.png')).convert_alpha()
-        self.image_charging_right = pygame.image.load(os.path.join('graphics', 'Mockup',
+        self.image_charging_right = pygame.image.load(os.path.join('graphics', img_folder,
                                   'opponent_charging_right.png')).convert_alpha()
-        self.image_charging_both = pygame.image.load(os.path.join('graphics', 'Mockup',
+        self.image_charging_both = pygame.image.load(os.path.join('graphics', img_folder,
                                   'opponent_charging_both.png')).convert_alpha()
-        self.image_attack_left = pygame.image.load(os.path.join('graphics', 'Mockup',
+        self.image_attack_left = pygame.image.load(os.path.join('graphics', img_folder,
                                   'opponent_attack_left.png')).convert_alpha()
-        self.image_attack_right = pygame.image.load(os.path.join('graphics', 'Mockup',
+        self.image_attack_right = pygame.image.load(os.path.join('graphics', img_folder,
                                   'opponent_attack_right.png')).convert_alpha()
-        self.image_attack_both = pygame.image.load(os.path.join('graphics', 'Mockup',
+        self.image_attack_both = pygame.image.load(os.path.join('graphics', img_folder,
                                   'opponent_attack_both.png')).convert_alpha()
-        self.image_damaged = pygame.image.load(os.path.join('graphics', 'Mockup',
+        self.image_damaged = pygame.image.load(os.path.join('graphics', img_folder,
                                   'opponent_damaged.png')).convert_alpha()
-        self.image_defeated = pygame.image.load(os.path.join('graphics', 'Mockup',
+        self.image_damaged_left = pygame.image.load(os.path.join('graphics', img_folder,
+                                  'opponent_damaged_left.png')).convert_alpha()
+        self.image_damaged_right = pygame.image.load(os.path.join('graphics', img_folder,
+                                  'opponent_damaged_right.png')).convert_alpha()
+        self.image_defeated = pygame.image.load(os.path.join('graphics', img_folder,
                                   'opponent_defeated.png')).convert_alpha()
         # Member variable setup
         self.opponent_image = self.image_neutral
@@ -57,7 +62,15 @@ class Opponent:
                 (self.state == 'block_right' and direction == 'right') or \
                 (self.state == 'block_both' and direction == 'center')):
             self.health_percent -= damage
+
+            # Transition to damaged state for stun and animation
             self.state_transition('damaged', 0.25)
+            if direction == 'left':
+                self.opponent_image = self.image_damaged_left
+            elif direction == 'right':
+                self.opponent_image = self.image_damaged_right
+
+            # Check if defeated
             if self.health_percent <= 0:
                 self.health_percent = 0
                 self.state_transition('defeated', 1)
