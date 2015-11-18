@@ -85,6 +85,9 @@ class CommandEntry:
             elif attack_command in ['open palm thrust', 'open palm strike', 'op']:
                 snd_punch.play()
                 opponent.take_damage(2, attack_direction)
+            elif attack_command in ['block', 'blk']:
+                # The player should block
+                player.block(attack_direction)
         self.text = ''
         self.cursor_pos = 0
 

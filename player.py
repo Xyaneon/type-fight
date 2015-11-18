@@ -30,11 +30,13 @@ class Player:
         '''Deals damage to this Player.'''
         if direction == 'left':
             if self.left_arm_state == 'blocking':
+                self.left_arm_state = 'idle'
                 return
             else:
                 self.health_percent -= damage
         if direction == 'right':
             if self.right_arm_state == 'blocking':
+                self.right_arm_state = 'idle'
                 return
             else:
                 self.health_percent -= damage
@@ -43,12 +45,24 @@ class Player:
                 self.health_percent -= int(math.floor(damage / 2.0))
             if not self.right_arm_state == 'blocking':
                 self.health_percent -= int(math.floor(damage / 2.0))
+            self.left_arm_state = 'idle'
+            self.right_arm_state = 'idle'
         self.health_percent -= damage
         if self.health_percent <= 0:
             self.health_percent = 0
             self.left_arm_state = 'defeated'
             self.right_arm_state = 'defeated'
             self.updown_juice = 0
+
+    def block(self, direction=''):
+        '''Block in the specified direction.'''
+        if direction == '' or direction == 'both' or direction == 'center':
+            self.left_arm_state = 'blocking'
+            self.right_arm_state = 'blocking'
+        elif direction == 'left':
+            self.left_arm_state = 'blocking'
+        elif direction == 'right':
+            self.right_arm_state = 'blocking'
 
     def render(self):
         '''Returns a pygame.Surface with the rendered player parts.'''
