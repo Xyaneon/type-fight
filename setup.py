@@ -14,7 +14,20 @@ shortcut_table = [
      "TARGETDIR",               # Component_
      "[TARGETDIR]typefight.exe",# Target
      None,                      # Arguments
-     None,                      # Description
+     "A typing game with fighting robots.",  # Description
+     None,                      # Hotkey
+     None,                      # Icon
+     None,                      # IconIndex
+     None,                      # ShowCmd
+     'TARGETDIR'                # WkDir
+     ),
+    ("ProgramMenuShortcut",         # Shortcut
+     "ProgramMenuFolder",           # Directory_
+     "TypeFight!",              # Name
+     "TARGETDIR",               # Component_
+     "[TARGETDIR]typefight.exe",# Target
+     None,                      # Arguments
+     "A typing game with fighting robots.",  # Description
      None,                      # Hotkey
      None,                      # Icon
      None,                      # IconIndex
@@ -24,10 +37,10 @@ shortcut_table = [
     ]
 
 msi_data = {"Shortcut": shortcut_table}
-bdist_msi_options = {'data': msi_data}
+bdist_msi_options = {'data': msi_data, 'upgrade_code': '{bd944f23-280b-49c4-8c25-ebc5823f18e0}'}
 
 executables = [
-    Executable('typefight.py')
+    Executable('typefight.py', base=base)
 ]
 
 setup(name='TypeFight',
