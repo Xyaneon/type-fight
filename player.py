@@ -10,10 +10,16 @@ class Player:
         self.surface = pygame.Surface((screen.get_width(),
                                        screen.get_height()),
                                       pygame.SRCALPHA).copy()
-        self.left_arm_image = pygame.image.load(os.path.join('graphics',
-                                  'player_left_arm.png')).convert_alpha()
-        self.right_arm_image = pygame.image.load(os.path.join('graphics',
-                                   'player_right_arm.png')).convert_alpha()
+        self.img_left_arm = pygame.image.load(os.path.join('graphics',
+                                         'player_left_arm.png')).convert_alpha()
+        self.img_right_arm = pygame.image.load(os.path.join('graphics',
+                                          'player_right_arm.png')).convert_alpha()
+        self.img_left_block = pygame.image.load(os.path.join('graphics',
+                                         'player_block_left.png')).convert_alpha()
+        self.img_right_block = pygame.image.load(os.path.join('graphics',
+                                          'player_block_right.png')).convert_alpha()
+        self.left_arm_image = self.img_left_arm
+        self.right_arm_image = self.img_right_arm
         self.left_arm_rect = self.left_arm_image.get_rect()
         self.right_arm_rect = self.right_arm_image.get_rect()
         self.rect = self.surface.get_rect()
@@ -31,12 +37,14 @@ class Player:
         if direction == 'left':
             if self.left_arm_state == 'blocking':
                 self.left_arm_state = 'idle'
+                self.left_arm_image = self.img_left_arm
                 return
             else:
                 self.health_percent -= damage
         if direction == 'right':
             if self.right_arm_state == 'blocking':
                 self.right_arm_state = 'idle'
+                self.right_arm_image = self.img_right_arm
                 return
             else:
                 self.health_percent -= damage
@@ -46,7 +54,9 @@ class Player:
             if not self.right_arm_state == 'blocking':
                 self.health_percent -= int(math.floor(damage / 2.0))
             self.left_arm_state = 'idle'
+            self.left_arm_image = self.img_left_arm
             self.right_arm_state = 'idle'
+            self.right_arm_image = self.img_right_arm
         self.health_percent -= damage
         if self.health_percent <= 0:
             self.health_percent = 0
@@ -58,11 +68,15 @@ class Player:
         '''Block in the specified direction.'''
         if direction == '' or direction == 'both' or direction == 'center':
             self.left_arm_state = 'blocking'
+            self.left_arm_image = self.img_left_block
             self.right_arm_state = 'blocking'
+            self.right_arm_image = self.img_right_block
         elif direction == 'left':
             self.left_arm_state = 'blocking'
+            self.left_arm_image = self.img_left_block
         elif direction == 'right':
             self.right_arm_state = 'blocking'
+            self.right_arm_image = self.img_right_block
 
     def render(self):
         '''Returns a pygame.Surface with the rendered player parts.'''
