@@ -56,25 +56,36 @@ class CommandEntry:
     def process_command(self, player, opponent):
         '''Processes the entered command and modifies Player and Opponent if
         needed.'''
-        if self.text == 'exit':
+        txt = self.text.strip()
+        if txt == 'exit':
             # Temporary debug command to quit the game
             pygame.quit()
             sys.exit()
-        elif self.text in ['forfeit', 'suicide', 'give up', 'you win', 'seppuku', 'hara kiri']:
+        elif txt in ['forfeit', 'suicide', 'give up', 'you win', 'seppuku', 'hara kiri']:
             # Temporary debug command to kill yourself
             player.take_damage(100, 'both')
-        elif self.text in ['fatality', 'obliterate', 'instakill', 'I win', 'murderize']:
+        elif txt in ['fatality', 'obliterate', 'instakill', 'I win', 'murderize']:
             # Temporary debug command to defeat your opponent instantly
             snd_punch.play()
             opponent.take_damage(100, 'center')
         else:
             # Treat this as an actual attack command and get the direction
-            attack_direction = self.text.strip().split()[-1]
+            # Check first whether the direction came before or after the
+            # actual command
+
+            # Direction first?
+            attack_direction = txt.split()[0]
             if attack_direction not in ['left', 'right', 'center']:
-                attack_direction = 'center'
-                attack_command = self.text
+                # Direction second?
+                attack_direction = txt.split()[-1]
+                if attack_direction not in ['left', 'right', 'center']:
+                    # No direction found; default to center
+                    attack_direction = 'center'
+                    attack_command = txt
+                else:
+                    attack_command = ' '.join(txt.split()[:-1])
             else:
-                attack_command = ' '.join(self.text.strip().split()[:-1])
+                attack_command = ' '.join(txt.split()[1:])
 
             if attack_command in ['punch', 'jab']:
                 snd_punch.play()
