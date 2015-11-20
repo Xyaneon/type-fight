@@ -57,7 +57,8 @@ class Player:
             self.left_arm_image = self.img_left_arm
             self.right_arm_state = 'idle'
             self.right_arm_image = self.img_right_arm
-        self.health_percent -= damage
+
+        # Check if defeated
         if self.health_percent <= 0:
             self.health_percent = 0
             self.left_arm_state = 'defeated'
