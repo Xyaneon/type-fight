@@ -35,6 +35,11 @@ class CommandEntry:
         '''Handles a KEYDOWN event, which is very important for this particular
         class since it handles text input from the keyboard.
         Also takes the Player and Opponent objects for modification.'''
+
+        # Don't allow the player to keep entering commands after they win
+        if opponent.state == 'defeated':
+            return
+        
         if event.key == pygame.K_BACKSPACE:
             # Delete text before cursor.
             self.backspace_at_cursor()
