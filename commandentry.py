@@ -53,6 +53,26 @@ class CommandEntry:
         # continually in render()
         self.text_surface = command_font.render('>' + self.text, True, command_text_color)
 
+    def parse_attack(self, attack_string):
+        '''Returns a dictionary with the attack direction and command
+        separated out for easier processing.'''
+        # Check first whether the direction came before or after the
+        # actual command
+        # Direction first?
+        direction = attack_string.split()[0]
+        if direction not in ['left', 'right', 'center']:
+            # Direction second?
+            direction = attack_string.split()[-1]
+            if direction not in ['left', 'right', 'center']:
+                # No direction found; default to center
+                direction = 'center'
+                command = attack_string
+            else:
+                command = ' '.join(attack_string.split()[:-1])
+        else:
+            command = ' '.join(attack_string.split()[1:])
+        return {'command': command, 'direction': direction}
+
     def process_command(self, player, opponent):
         '''Processes the entered command and modifies Player and Opponent if
         needed.'''
@@ -70,35 +90,20 @@ class CommandEntry:
             opponent.take_damage(100, 'center')
         else:
             # Treat this as an actual attack command and get the direction
-            # Check first whether the direction came before or after the
-            # actual command
+            attack = self.parse_attack(txt)
 
-            # Direction first?
-            attack_direction = txt.split()[0]
-            if attack_direction not in ['left', 'right', 'center']:
-                # Direction second?
-                attack_direction = txt.split()[-1]
-                if attack_direction not in ['left', 'right', 'center']:
-                    # No direction found; default to center
-                    attack_direction = 'center'
-                    attack_command = txt
-                else:
-                    attack_command = ' '.join(txt.split()[:-1])
-            else:
-                attack_command = ' '.join(txt.split()[1:])
-
-            if attack_command in ['punch', 'jab']:
+            if attack['command'] in ['punch', 'jab']:
                 snd_punch.play()
-                opponent.take_damage(5, attack_direction)
-            elif attack_command == 'haymaker':
+                opponent.take_damage(5, attack['direction'])
+            elif attack['command'] == 'haymaker':
                 snd_punch.play()
-                opponent.take_damage(8, attack_direction)
-            elif attack_command in ['open palm thrust', 'open palm strike', 'op']:
+                opponent.take_damage(8, attack['direction'])
+            elif attack['command'] in ['open palm thrust', 'open palm strike', 'op']:
                 snd_punch.play()
-                opponent.take_damage(2, attack_direction)
-            elif attack_command in ['block', 'blk']:
+                opponent.take_damage(2, attack['direction'])
+            elif attack['command'] in ['block', 'blk']:
                 # The player should block
-                player.block(attack_direction)
+                player.block(attack['direction'])
         self.text = ''
         self.cursor_pos = 0
 
