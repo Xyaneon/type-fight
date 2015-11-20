@@ -49,6 +49,8 @@ class Opponent:
         # Member variable setup
         self.opponent_image = self.image_neutral
         self.rect = self.opponent_image.get_rect()
+        self.rect.centerx = self.surface.get_rect().centerx
+        self.rect.centery = self.surface.get_rect().centery
         self.updown_juice = 0
         self.health_percent = 100
         self.attack_delay_frames = 0
@@ -147,23 +149,23 @@ class Opponent:
                 elif self.state in ['attack_left', 'attack_right', 'attack_both']:
                     self.state_transition('idle', 1)
 
-    def render(self):
-        '''Returns a pygame.Surface with the rendered opponent.'''
-        self.rect = self.opponent_image.get_rect()
-        self.surface.fill(pygame.color.Color(0, 0, 0, 0))
-        center_rect = self.rect.copy()
-        center_rect.centerx = self.surface.get_rect().centerx
+    def render(self, screen):
+        '''Returns a pygame.Surface with the rendered opponent. This needs the
+        display Surface passed in to properly position the image.
+        This also updates the rect variable for this instance.'''
+        center_rect = self.opponent_image.get_rect().copy()
+        center_rect.centerx = screen.get_rect().centerx
         if self.state in ['idle', 'damaged', 'charging_left', 'charging_right']:
             self.updown_juice += (2.0 * math.pi) / 60.0
-            center_rect.centery = self.surface.get_rect().centery + 10 * math.sin(self.updown_juice)
+            center_rect.centery = screen.get_rect().centery + 10 * math.sin(self.updown_juice)
         elif self.state == 'defeated':
             self.updown_juice += 5
-            center_rect.centery = self.surface.get_rect().centery + self.updown_juice
+            center_rect.centery = screen.get_rect().centery + self.updown_juice
         else:
             self.updown_juice = 0
-            center_rect.centery = self.surface.get_rect().centery
-        self.surface.blit(self.opponent_image, center_rect)
-        return self.surface
+            center_rect.centery = screen.get_rect().centery
+        self.rect = center_rect
+        return self.opponent_image
 
 class TrainingDummy(Opponent):
     '''Opponent subclass used for the tutorial level.'''

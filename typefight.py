@@ -77,8 +77,12 @@ def run_fight(opponent=Opponent(screen)):
         c_entry.render()
         game_surface.blit(fight_bkg, game_surface.get_rect())
         hud_surface = hud.render(c_entry, player.health_percent, opponent.health_percent)
-        game_surface.blit(opponent.render(), opponent.get_rect())
-        game_surface.blit(player.render(), player.get_rect())
+        game_surface.blit(opponent.render(screen), opponent.get_rect())
+
+        player.render(screen)
+        game_surface.blit(player.left_arm_image, player.la_center_rect)
+        game_surface.blit(player.right_arm_image, player.ra_center_rect)
+
         screen.blit(game_surface, game_surface.get_rect())
         screen.blit(hud_surface, hud_surface.get_rect())
         if opponent.state == 'defeated':

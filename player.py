@@ -7,9 +7,6 @@ player_arm_spacing = 128 / 2
 class Player:
     '''Class representing the player's character onscreen'.'''
     def __init__(self, screen):
-        self.surface = pygame.Surface((screen.get_width(),
-                                       screen.get_height()),
-                                      pygame.SRCALPHA).copy()
         self.img_left_arm = pygame.image.load(os.path.join('graphics',
                                          'player_left_arm.png')).convert_alpha()
         self.img_right_arm = pygame.image.load(os.path.join('graphics',
@@ -20,17 +17,12 @@ class Player:
                                           'player_block_right.png')).convert_alpha()
         self.left_arm_image = self.img_left_arm
         self.right_arm_image = self.img_right_arm
-        self.left_arm_rect = self.left_arm_image.get_rect()
-        self.right_arm_rect = self.right_arm_image.get_rect()
-        self.rect = self.surface.get_rect()
+        self.la_center_rect = self.left_arm_image.get_rect().copy()
+        self.ra_center_rect = self.right_arm_image.get_rect().copy()
         self.updown_juice = 0
         self.health_percent = 100
         self.left_arm_state = 'idle'
         self.right_arm_state = 'idle'
-
-    def get_rect(self):
-        '''Returns a pygame.Rect representing the rendered surface Rect.'''
-        return self.rect
 
     def take_damage(self, damage, direction):
         '''Deals damage to this Player.'''
@@ -79,21 +71,17 @@ class Player:
             self.right_arm_state = 'blocking'
             self.right_arm_image = self.img_right_block
 
-    def render(self):
-        '''Returns a pygame.Surface with the rendered player parts.'''
+    def render(self, screen):
+        '''Updates the player arm rects. Takes the display Surface for
+        positioning.'''
         self.updown_juice += (2.0 * math.pi) / 45.0
-        self.surface.fill(pygame.color.Color(0, 0, 0, 0))
 
         # Left arm
-        la_center_rect = self.left_arm_image.get_rect().copy()
-        la_center_rect.right = self.rect.centerx - player_arm_spacing
-        la_center_rect.top = self.rect.centery + 15 * math.sin(self.updown_juice)
-        self.surface.blit(self.left_arm_image, la_center_rect)
+        self.la_center_rect = self.left_arm_image.get_rect().copy()
+        self.la_center_rect.right = screen.get_rect().centerx - player_arm_spacing
+        self.la_center_rect.top = screen.get_rect().centery + 15 * math.sin(self.updown_juice)
 
         # Right arm
-        ra_center_rect = self.right_arm_image.get_rect().copy()
-        ra_center_rect.left = self.rect.centerx + player_arm_spacing
-        ra_center_rect.top = self.rect.centery + 15 * math.sin(self.updown_juice)
-        self.surface.blit(self.right_arm_image, ra_center_rect)
-
-        return self.surface
+        self.ra_center_rect = self.right_arm_image.get_rect().copy()
+        self.ra_center_rect.left = screen.get_rect().centerx + player_arm_spacing
+        self.ra_center_rect.top = screen.get_rect().centery + 15 * math.sin(self.updown_juice)
