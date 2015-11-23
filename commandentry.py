@@ -76,10 +76,9 @@ class CommandEntry:
                     command = ' '.join(attack_string.split()[:-1])
             else:
                 command = ' '.join(attack_string.split()[1:])
-        except IndexError as e:
+        except:
             logging.exception('Error in attack parsing')
-            # Return generic result instead of crashing
-            return {'command': 'punch', 'direction': 'center'}
+            raise
         return {'command': command, 'direction': direction}
 
     def process_command(self, player, opponent):
@@ -98,7 +97,12 @@ class CommandEntry:
             opponent.take_damage(100, 'center')
         else:
             # Treat this as an actual attack command and get the direction
-            attack = self.parse_attack(txt)
+            try:
+                attack = self.parse_attack(txt)
+            except:
+                logging.error('Attack parsing failed with command string \'%s\'', txt)
+                # Use generic result instead of crashing
+                attack = {'command': 'punch', 'direction': 'center'}
 
             if attack['command'] in ['punch', 'jab']:
                 opponent.take_damage(5, attack['direction'])

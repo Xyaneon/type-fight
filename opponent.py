@@ -139,15 +139,12 @@ class Opponent:
                     self.state_transition('idle', 2)
                 elif self.state == 'charging_left':
                     player.take_damage(5, 'left')
-                    snd_punch.play()
                     self.state_transition('attack_left', 0.25)
                 elif self.state == 'charging_right':
                     player.take_damage(5, 'right')
-                    snd_punch.play()
                     self.state_transition('attack_right', 0.25)
                 elif self.state == 'charging_both':
                     player.take_damage(5, 'both')
-                    snd_punch.play()
                     self.state_transition('attack_both', 0.25)
                 elif self.state in ['block_left', 'block_right', 'block_both']:
                     self.state_transition(random.choice(['idle', 'charging_left', 'charging_right', 'charging_both']), 1)
