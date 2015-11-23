@@ -77,7 +77,7 @@ class CommandEntry:
             else:
                 command = ' '.join(attack_string.split()[1:])
         except IndexError as e:
-            logging.error('IndexError occurred in commandentry.parse_attack()')
+            logging.exception('Error in attack parsing')
             # Return generic result instead of crashing
             return {'command': 'punch', 'direction': 'center'}
         return {'command': command, 'direction': direction}
