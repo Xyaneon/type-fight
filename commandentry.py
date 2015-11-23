@@ -11,8 +11,8 @@ command_text_color = pygame.color.Color(0, 255, 0)
 class CommandEntry:
     '''Class for managing the command entry window.'''
     def __init__(self):
-        self.rect = None
-        self.surface = None
+        self.surface = pygame.Surface((385, prompt_height), pygame.SRCALPHA)
+        self.rect = self.surface.get_rect()
         self.text = ''
         self.text_surface = command_font.render('>', True, command_text_color)
         self.cursor_surface = None
@@ -165,7 +165,7 @@ class CommandEntry:
         window and text.'''
         padding = 10
         self.cursor_fade_phase += (2.0 * math.pi) / 60.0
-        self.surface = pygame.Surface((385, prompt_height), pygame.SRCALPHA).copy()
+        self.surface.fill(pygame.Color(0, 0, 0, 0))
 
         # For text cursor
         cursor_draw_pos = command_font.size('>' + self.text[:self.cursor_pos])[0]
@@ -182,5 +182,6 @@ class CommandEntry:
             text_left_align = padding
             text_top_align = padding
             self.surface.blit(self.text_surface, (text_left_align, text_top_align))
-            self.surface.blit(self.cursor_surface, (text_left_align + cursor_draw_pos, text_top_align))
+            if self.cursor_surface is not None:
+                self.surface.blit(self.cursor_surface, (text_left_align + cursor_draw_pos, text_top_align))
         return self.surface
