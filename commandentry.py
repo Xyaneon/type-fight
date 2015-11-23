@@ -8,10 +8,6 @@ command_font = pygame.font.Font("fonts/Share_Tech_Mono/ShareTechMono-Regular.ttf
 command_bkg_color = pygame.color.Color(0, 0, 0)
 command_text_color = pygame.color.Color(0, 255, 0)
 
-# Sound effects for attacks
-pygame.mixer.init()
-snd_punch = pygame.mixer.Sound(os.path.join('sounds', 'punch.wav'))
-
 class CommandEntry:
     '''Class for managing the command entry window.'''
     def __init__(self):
@@ -39,7 +35,7 @@ class CommandEntry:
         # Don't allow the player to keep entering commands after they win
         if opponent.state == 'defeated':
             return
-        
+
         if event.key == pygame.K_BACKSPACE:
             # Delete text before cursor.
             self.backspace_at_cursor()
@@ -91,20 +87,16 @@ class CommandEntry:
             player.take_damage(100, 'both')
         elif txt in ['fatality', 'obliterate', 'instakill', 'I win', 'murderize']:
             # Temporary debug command to defeat your opponent instantly
-            snd_punch.play()
             opponent.take_damage(100, 'center')
         else:
             # Treat this as an actual attack command and get the direction
             attack = self.parse_attack(txt)
 
             if attack['command'] in ['punch', 'jab']:
-                snd_punch.play()
                 opponent.take_damage(5, attack['direction'])
             elif attack['command'] == 'haymaker':
-                snd_punch.play()
                 opponent.take_damage(8, attack['direction'])
             elif attack['command'] in ['open palm thrust', 'open palm strike', 'op']:
-                snd_punch.play()
                 opponent.take_damage(2, attack['direction'])
             elif attack['command'] in ['block', 'blk']:
                 # The player should block

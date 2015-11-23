@@ -2,6 +2,11 @@
 
 import math, os, pygame
 
+# Sound effects for attacks
+pygame.mixer.init()
+snd_punch = pygame.mixer.Sound(os.path.join('sounds', 'punch.wav'))
+snd_block = pygame.mixer.Sound(os.path.join('sounds', 'Swords_Collide-Sound_Explorer-2015600826.wav'))
+
 player_arm_spacing = 128 / 2
 
 class Player:
@@ -30,21 +35,31 @@ class Player:
             if self.left_arm_state == 'blocking':
                 self.left_arm_state = 'idle'
                 self.left_arm_image = self.img_left_arm
+                snd_block.play()
                 return
             else:
                 self.health_percent -= damage
+                snd_punch.play()
         if direction == 'right':
             if self.right_arm_state == 'blocking':
                 self.right_arm_state = 'idle'
                 self.right_arm_image = self.img_right_arm
+                snd_block.play()
                 return
             else:
                 self.health_percent -= damage
+                snd_punch.play()
         if direction == 'both':
             if not self.left_arm_state == 'blocking':
                 self.health_percent -= int(math.floor(damage / 2.0))
+                snd_punch.play()
+            else:
+                snd_block.play()
             if not self.right_arm_state == 'blocking':
                 self.health_percent -= int(math.floor(damage / 2.0))
+                snd_punch.play()
+            else:
+                snd_block.play()
             self.left_arm_state = 'idle'
             self.left_arm_image = self.img_left_arm
             self.right_arm_state = 'idle'

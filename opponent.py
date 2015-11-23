@@ -5,6 +5,7 @@ import math, os, pygame, random
 # Sound effects for attacks
 pygame.mixer.init()
 snd_punch = pygame.mixer.Sound(os.path.join('sounds', 'punch.wav'))
+snd_block = pygame.mixer.Sound(os.path.join('sounds', 'Swords_Collide-Sound_Explorer-2015600826.wav'))
 
 class Opponent:
     '''Class representing the opponent the player can see.'''
@@ -67,6 +68,7 @@ class Opponent:
         if not ((self.state == 'block_left' and direction == 'left') or \
                 (self.state == 'block_right' and direction == 'right') or \
                 (self.state == 'block_both' and direction == 'center')):
+            snd_punch.play()
             self.health_percent -= damage
 
             # Transition to damaged state for stun and animation
@@ -81,6 +83,9 @@ class Opponent:
                 self.health_percent = 0
                 self.state_transition('defeated', 1)
                 self.updown_juice = 0
+        else:
+            # Attack was blocked
+            snd_block.play()
 
     def state_transition(self, state, state_seconds):
         '''Go into the next state for so many seconds.'''

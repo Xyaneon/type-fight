@@ -21,6 +21,14 @@ For our background music, we are currently using:
 *Licensed under Creative Commons: By Attribution 3.0*<br />
 http://creativecommons.org/licenses/by/3.0/
 
+### Sound Effects
+
+All sound effects used are from the public domain, except the following which we are providing attribution for:
+
+"Swords Collide" from SoundBible.com<br />
+Licensed under Creative Commons: Attribution 3.0<br />
+https://creativecommons.org/licenses/by/3.0/
+
 ### Contributors
 
 We would also like to give thanks to Kamil Jarosz ([kjarosz](https://github.com/kjarosz)) for his compatibility patches for Windows.
