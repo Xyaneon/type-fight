@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>TypeFight!</title>
+  </head>
+  <body>
+    <h1>Welcome to <em>TypeFight!</em></h1>
+    <p>
+      <em>TypeFight!</em> is a game where you fight opponents through the eyes
+      of your own robot. What makes this game unique is its requirement that
+      all moves be entered via a command line interface; in other words, your
+      robot fighter does whatever you type!
+    </p>
+    <p>
+      Here are some tips to help you get started on your way to victory.
+    </p>
+
+    <h1>Your HUD Explained</h1>
+    <p>
+      Please consult the below image for an overview of different parts of the
+      game heads-up display (HUD):
+    </p>
+    <img src="images/HUD_overview.png" alt="HUD overview" />
+    <ol>
+      <li>
+        <strong>Your health.</strong>
+        If this is reduced to zero, you lose.
+      </li>
+      <li>
+        <strong>Your opponent's health.</strong>
+        If you can reduce this to zero, you win.
+      </li>
+      <li>
+        <strong>Your opponent.</strong>
+        Your job is to punch his lights out.
+      </li>
+      <li>
+        <strong>Your left arm.</strong>
+        You can punch and block with this arm separately from the right.
+      </li>
+      <li>
+        <strong>Your right arm.</strong>
+        Like the left arm, this one can attack and block on its own.
+      </li>
+      <li>
+        <strong>Command entry.</strong>
+        This is where you tell your robot fighter what to do. Quickly type in
+        commands and press the <kbd>Enter</kbd> key to send them.
+      </li>
+    </ol>
+
+    <h1>Commands</h1>
+    <p>
+      Everything you can do in <em>TypeFight!</em> is done by entering a
+      command using your keyboard and pressing <kbd>Enter</kbd> to execute. See
+      the below table for a partial list of some commands you can enter.
+    </p>
+    <table>
+      <tr>
+        <th>Command</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td><code>punch</code></td>
+        <td>A basic punching attack.</td>
+      </tr>
+      <tr>
+        <td><code>jab</code></td>
+        <td>Like <code>punch</code>, but faster to type (if slightly weaker).</td>
+      </tr>
+      <tr>
+        <td><code>open palm strike</code></td>
+        <td>A weak strike.</td>
+      </tr>
+      <tr>
+        <td><code>haymaker</code></td>
+        <td>A strong punch coming from the side.</td>
+      </tr>
+      <tr>
+        <td><code>block</code></td>
+        <td>Raises your arm(s) to block one incoming attack.</td>
+      </tr>
+    </table>
+    <p>
+      Note that some commands have shorter <em>aliases</em> which can make them
+      faster to type. Here's a free one: <code>open palm strike</code> can also
+      be typed as <code>op</code>, which lets you use the move much faster!
+    </p>
+    <p>
+      Attacks and blocks also should have a direction inputted either before or
+      after the command. The direction will generally be one of:
+    </p>
+    <ul>
+      <li><code>left</code></li>
+      <li><code>right</code></li>
+      <li><code>center</code></li>
+    </ul>
+    <p>
+      So to throw a left jab, you can type either <code>left jab</code> or
+      <code>jab left</code>. Blocking an attack coming in from the right is
+      achieved by entering either <code>block right</code> or <code>right block</code>
+      . If you leave off the direction, <code>center</code> is assumed.
+    </p>
+    <p>
+      To be an effective fighter, you must observe your opponent carefully. Your
+      opponents will often telegraph their attacks, and they can block yours as
+      well. Pick the right action and direction, and type it quickly to perform
+      it in time. But be careful! Unrecognized commands, such as those with
+      typos, won't do anything other than leave you open to attack.
+    </p>
+  </body>
+</html>
