@@ -1,6 +1,9 @@
 #!/bin/python
 
-import math, os, pygame, sys
+import logging, math, os, pygame, sys
+
+logging.basicConfig(filename='typefight.log', filemode='w',
+                    format='%(levelname)s:%(message)s', level=logging.DEBUG)
 
 prompt_height = 55
 pygame.font.init()
@@ -59,19 +62,24 @@ class CommandEntry:
         separated out for easier processing.'''
         # Check first whether the direction came before or after the
         # actual command
-        # Direction first?
-        direction = attack_string.split()[0]
-        if direction not in ['left', 'right', 'center']:
-            # Direction second?
-            direction = attack_string.split()[-1]
+        try:
+            # Direction first?
+            direction = attack_string.split()[0]
             if direction not in ['left', 'right', 'center']:
-                # No direction found; default to center
-                direction = 'center'
-                command = attack_string
+                # Direction second?
+                direction = attack_string.split()[-1]
+                if direction not in ['left', 'right', 'center']:
+                    # No direction found; default to center
+                    direction = 'center'
+                    command = attack_string
+                else:
+                    command = ' '.join(attack_string.split()[:-1])
             else:
-                command = ' '.join(attack_string.split()[:-1])
-        else:
-            command = ' '.join(attack_string.split()[1:])
+                command = ' '.join(attack_string.split()[1:])
+        except IndexError as e:
+            logging.error('IndexError occurred in commandentry.parse_attack()')
+            # Return generic result instead of crashing
+            return {'command': 'punch', 'direction': 'center'}
         return {'command': command, 'direction': direction}
 
     def process_command(self, player, opponent):
