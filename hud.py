@@ -33,10 +33,11 @@ class Hud:
         # Health bars
         phfr = self.player_health_fg_rect.copy()
         phfr.width = phfr.width * (float(player_health) / 100.0)
-        ohfr = self.opponent_health_fg_rect.copy()
-        ohfr.width = ohfr.width * (float(opponent_health) / 100.0)
         pygame.draw.rect(self.surface, self.player_health_bkg_color, self.player_health_bkg_rect, 2)
-        pygame.draw.rect(self.surface, self.opponent_health_bkg_color, self.opponent_health_bkg_rect, 2)
         pygame.draw.rect(self.surface, self.player_health_fg_color, phfr)
-        pygame.draw.rect(self.surface, self.opponent_health_fg_color, ohfr)
+        if opponent_health > 0:
+            ohfr = self.opponent_health_fg_rect.copy()
+            ohfr.width = ohfr.width * (float(opponent_health) / 100.0)
+            pygame.draw.rect(self.surface, self.opponent_health_bkg_color, self.opponent_health_bkg_rect, 2)
+            pygame.draw.rect(self.surface, self.opponent_health_fg_color, ohfr)
         return self.surface
