@@ -1,6 +1,6 @@
 #!/bin/python
 
-import logging, math, os, platform, pygame, sys
+import logging, math, os, platform, pygame, sys, webbrowser
 
 # Logging setup
 if platform.system() == 'Windows':
@@ -114,10 +114,15 @@ class CommandEntry:
         self.text = ''
         self.cursor_pos = 0
 
+        # Check for "special commands" first which are not attacks or blocks
+        # Could be debug commands, cheat codes, Easter eggs or other things
         if txt == 'exit':
             # Temporary debug command to quit the game
             pygame.quit()
             sys.exit()
+        elif txt == 'help':
+            # Show the game help file in the browser
+            webbrowser.open_new('help/typefight.html')
         elif txt in ['forfeit', 'suicide', 'give up', 'you win', 'seppuku', 'hara kiri']:
             # Temporary debug command to kill yourself
             player.take_damage(100, 'both')
