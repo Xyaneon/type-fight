@@ -2,7 +2,7 @@ from cx_Freeze import setup, Executable
 
 # Dependencies are automatically detected, but it might need
 # fine tuning.
-buildOptions = dict(packages = [], excludes = [], include_files = ['fonts/', 'graphics/', 'sounds/', 'music/'])
+buildOptions = dict(packages = [], excludes = [], include_files = ['fonts/', 'graphics/', 'sounds/', 'music/', 'help/'])
 
 import sys
 base = 'Win32GUI' if sys.platform=='win32' else None
@@ -33,6 +33,19 @@ shortcut_table = [
      None,                      # IconIndex
      None,                      # ShowCmd
      'TARGETDIR'                # WkDir
+     ),
+    ("ProgramMenuHelpShortcut",         # Shortcut
+     "ProgramMenuFolder",           # Directory_
+     "TypeFight! Help",              # Name
+     "TARGETDIR",               # Component_
+     "[TARGETDIR]help/typefight.html",# Target
+     None,                      # Arguments
+     "TypeFight! electronic instruction manual.",  # Description
+     None,                      # Hotkey
+     None,                      # Icon
+     None,                      # IconIndex
+     None,                      # ShowCmd
+     'TARGETDIR'                # WkDir
      )
     ]
 
@@ -44,7 +57,7 @@ executables = [
 ]
 
 setup(name='TypeFight',
-      version = '0.1',
+      version = '0.2',
       description = 'A typing game with fighting robots',
       options = dict(build_exe = buildOptions, bdist_msi = bdist_msi_options),
       executables = executables)
