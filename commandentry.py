@@ -24,7 +24,7 @@ else:
         if not os.path.isdir(logdir):
             raise
     logname = os.path.join(logdir, 'typefight.log')
-    logging.basicConfig(filename='typefight.log', filemode='w',
+    logging.basicConfig(filename=logname, filemode='w',
                         format='%(levelname)s:%(message)s',
                         level=logging.DEBUG)
 
@@ -113,7 +113,7 @@ class CommandEntry:
 
         self.text = ''
         self.cursor_pos = 0
-        
+
         if txt == 'exit':
             # Temporary debug command to quit the game
             pygame.quit()
