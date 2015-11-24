@@ -142,16 +142,20 @@ class CommandEntry:
 
             if attack['command'] in ['punch', 'jab']:
                 opponent.take_damage(5, attack['direction'])
+                player.unblock(attack['direction'])
             elif attack['command'] == 'haymaker':
                 # Haymaker can only come from right or left
                 if attack['direction'] not in ['left', 'right']:
                     attack['direction'] = random.choice(['left', 'right'])
                 opponent.take_damage(8, attack['direction'])
+                player.unblock(attack['direction'])
             elif attack['command'] == 'uppercut':
                 # Uppercut can only be aimed at center targets
                 opponent.take_damage(8, 'center')
+                player.unblock('center')
             elif attack['command'] in ['open palm thrust', 'open palm strike', 'op']:
                 opponent.take_damage(2, attack['direction'])
+                player.unblock(attack['direction'])
             elif attack['command'] in ['block', 'blk']:
                 # The player should block
                 player.block(attack['direction'])
