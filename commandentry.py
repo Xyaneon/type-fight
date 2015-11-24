@@ -153,6 +153,9 @@ class CommandEntry:
             elif attack['command'] in ['block', 'blk']:
                 # The player should block
                 player.block(attack['direction'])
+            elif attack['command'] in ['unblock', 'unblk']:
+                # The player should unblock
+                player.unblock(attack['direction'])
 
     def move_cursor_left(self):
         '''Moves the current cursor position left one character, if able.'''
