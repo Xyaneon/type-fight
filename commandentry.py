@@ -17,7 +17,7 @@ if platform.system() == 'Windows':
                         level=logging.DEBUG)
 else:
     # Assume Linux
-    logdir = os.path.join(os.path.expanduser('~'), 'typefight')
+    logdir = os.path.join(os.path.expanduser('~'), '.typefight')
     try:
         os.makedirs(logdir)
     except OSError:
