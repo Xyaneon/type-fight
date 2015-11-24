@@ -86,6 +86,20 @@ class Player:
             self.right_arm_state = 'blocking'
             self.right_arm_image = self.img_right_block
 
+    def unblock(self, direction=''):
+        '''Cancels block in the specified direction, returning to idle.'''
+        if direction == '' or direction == 'both' or direction == 'center':
+            self.left_arm_state = 'idle'
+            self.left_arm_image = self.img_left_arm
+            self.right_arm_state = 'idle'
+            self.right_arm_image = self.img_right_arm
+        elif direction == 'left':
+            self.left_arm_state = 'idle'
+            self.left_arm_image = self.img_left_arm
+        elif direction == 'right':
+            self.right_arm_state = 'idle'
+            self.right_arm_image = self.img_right_arm
+
     def render(self, screen):
         '''Updates the player arm rects. Takes the display Surface for
         positioning.'''
