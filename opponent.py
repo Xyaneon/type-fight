@@ -72,7 +72,7 @@ class Opponent:
             self.health_percent -= damage
 
             # Transition to damaged state for stun and animation
-            self.state_transition('damaged', 0.25)
+            self.state_transition('damaged', 0.2)
             if direction == 'left':
                 self.opponent_image = self.image_damaged_left
             elif direction == 'right':
@@ -136,7 +136,7 @@ class Opponent:
                                    'block_both']
                     self.state_transition(random.choice(action_list), 1)
                 elif self.state == 'damaged':
-                    self.state_transition('idle', 2)
+                    self.state_transition(random.choice(['idle', 'block_left', 'block_right', 'block_both']), 2)
                 elif self.state == 'charging_left':
                     player.take_damage(5, 'left')
                     self.state_transition('attack_left', 0.25)
