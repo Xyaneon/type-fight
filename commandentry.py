@@ -108,6 +108,12 @@ class CommandEntry:
         '''Processes the entered command and modifies Player and Opponent if
         needed.'''
         txt = self.text.strip()
+        if txt == '':
+            return
+
+        self.text = ''
+        self.cursor_pos = 0
+        
         if txt == 'exit':
             # Temporary debug command to quit the game
             pygame.quit()
@@ -136,8 +142,6 @@ class CommandEntry:
             elif attack['command'] in ['block', 'blk']:
                 # The player should block
                 player.block(attack['direction'])
-        self.text = ''
-        self.cursor_pos = 0
 
     def move_cursor_left(self):
         '''Moves the current cursor position left one character, if able.'''
