@@ -61,6 +61,8 @@ class CommandEntry:
         # Don't allow the player to keep entering commands after they win
         if opponent.state == 'defeated':
             return
+        if player.health_percent <= 0:
+            return
 
         if event.key == pygame.K_BACKSPACE:
             # Delete text before cursor.
