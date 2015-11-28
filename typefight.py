@@ -70,7 +70,10 @@ def run_fight(opponent=Opponent(screen)):
                     # TODO: Handle mouse movement event
                     pass
             elif event.type is KEYDOWN:
-                c_entry.handle_keydown_event(event, player, opponent)
+                c_entry.handle_keydown_event(event,
+                                             player,
+                                             opponent,
+                                             c_output)
 
         # State updating
         opponent.update_state(player)

@@ -53,10 +53,11 @@ class CommandEntry:
         '''Returns the currently displayed text in the command entry window.'''
         return self.text
 
-    def handle_keydown_event(self, event, player, opponent):
+    def handle_keydown_event(self, event, player, opponent, c_output):
         '''Handles a KEYDOWN event, which is very important for this particular
         class since it handles text input from the keyboard.
-        Also takes the Player and Opponent objects for modification.'''
+        Also takes the Player, Opponent and CommandOutput objects for
+        modification.'''
 
         # Don't allow the player to keep entering commands after they win
         if opponent.state == 'defeated':
@@ -75,7 +76,9 @@ class CommandEntry:
         elif event.key == pygame.K_RIGHT:
             self.move_cursor_right()
         elif event.key == pygame.K_RETURN:
-            self.process_command(player, opponent)
+            output_line = self.process_command(player, opponent)
+            # Update output window if needed
+            c_output.add_line(output_line)
         else:
             self.insert_char_at_cursor(event.unicode)
         # Update rendered command text after a keypress instead of doing it
@@ -108,10 +111,11 @@ class CommandEntry:
 
     def process_command(self, player, opponent):
         '''Processes the entered command and modifies Player and Opponent if
-        needed.'''
+        needed. Returns a String to display as feedback.'''
+        output_string = 'ERROR: No command found.'
         txt = self.text.strip()
         if txt == '':
-            return
+            return output_string
 
         self.text = ''
         self.cursor_pos = 0
@@ -120,16 +124,20 @@ class CommandEntry:
         # Could be debug commands, cheat codes, Easter eggs or other things
         if txt == 'exit':
             # Temporary debug command to quit the game
+            output_string = 'System shutdown.'
             pygame.quit()
             sys.exit()
         elif txt == 'help':
             # Show the game help file in the browser
+            output_string = 'INFO: Displaying manual.'
             webbrowser.open_new('help/typefight.html')
         elif txt in ['forfeit', 'suicide', 'give up', 'you win', 'seppuku', 'hara kiri']:
             # Temporary debug command to kill yourself
+            output_string = 'Self-destruct activated.'
             player.take_damage(100, 'both')
         elif txt in ['fatality', 'obliterate', 'instakill', 'I win', 'murderize']:
             # Temporary debug command to defeat your opponent instantly
+            output_string = 'Opponent obliterated.'
             opponent.take_damage(100, 'center')
         else:
             # Treat this as an actual attack command and get the direction
@@ -143,25 +151,34 @@ class CommandEntry:
             if attack['command'] in ['punch', 'jab']:
                 opponent.take_damage(5, attack['direction'])
                 player.unblock(attack['direction'])
+                output_string = 'Performed ' + attack['direction'] + ' punch'
             elif attack['command'] == 'haymaker':
                 # Haymaker can only come from right or left
                 if attack['direction'] not in ['left', 'right']:
                     attack['direction'] = random.choice(['left', 'right'])
                 opponent.take_damage(8, attack['direction'])
                 player.unblock(attack['direction'])
+                output_string = 'Performed ' + attack['direction'] + ' haymaker'
             elif attack['command'] == 'uppercut':
                 # Uppercut can only be aimed at center targets
                 opponent.take_damage(8, 'center')
                 player.unblock('center')
+                output_string = 'Performed uppercut'
             elif attack['command'] in ['open palm thrust', 'open palm strike', 'op']:
                 opponent.take_damage(2, attack['direction'])
                 player.unblock(attack['direction'])
+                output_string = 'Performed ' + attack['direction'] + ' open palm strike'
             elif attack['command'] in ['block', 'blk']:
                 # The player should block
                 player.block(attack['direction'])
+                output_string = attack['direction'] + ' block activated'
             elif attack['command'] in ['unblock', 'unblk']:
                 # The player should unblock
                 player.unblock(attack['direction'])
+                output_string = attack['direction'] + ' block deactivated'
+            else:
+                output_string = 'ERROR: Invalid command.'
+        return output_string
 
     def move_cursor_left(self):
         '''Moves the current cursor position left one character, if able.'''
