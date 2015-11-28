@@ -3,6 +3,7 @@
 import os, pygame, pygame.mixer, sys
 from pygame.locals import *
 from commandentry import CommandEntry
+from commandoutput import CommandOutput
 from hud import Hud
 from opponent import Opponent
 from player import Player
@@ -44,6 +45,7 @@ except Exception as e:
 
 # Main objects setup
 c_entry = CommandEntry()
+c_output = CommandOutput()
 
 def run_fight(opponent=Opponent(screen)):
     '''Main loop code for each fight. Takes an Opponent to use.'''
@@ -75,8 +77,12 @@ def run_fight(opponent=Opponent(screen)):
 
         # Draw graphics
         c_entry.render()
+        c_output.render()
         game_surface.blit(fight_bkg, game_surface.get_rect())
-        hud_surface = hud.render(c_entry, player.health_percent, opponent.health_percent)
+        hud_surface = hud.render(c_entry,
+                                 c_output,
+                                 player.health_percent,
+                                 opponent.health_percent)
         game_surface.blit(opponent.render(screen), opponent.get_rect())
 
         player.render(screen)

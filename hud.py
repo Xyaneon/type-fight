@@ -23,13 +23,14 @@ class Hud:
         self.opponent_health_fg_rect = self.opponent_health_bkg_rect.inflate(-8, -8)
         self.opponent_health_fg_color = pygame.color.Color(255, 0, 0, 150)
 
-    def render(self, c_entry, player_health, opponent_health):
+    def render(self, c_entry, c_output, player_health, opponent_health):
         '''Returns a pygame.Surface with all the rendered HUD elements.
-        Requires the command entry and some game info to render.'''
+        Requires the command entry and output, and some game info to render.'''
         # Main HUD portion
         self.surface.fill(pygame.color.Color(0, 0, 0, 0))
         self.surface.blit(self.hud_bkg_image, self.hud_bkg_image.get_rect())
         self.surface.blit(c_entry.surface, (345, 775))
+        self.surface.blit(c_output.surface, (0, 0)) # Find better position later
         # Health bars
         phfr = self.player_health_fg_rect.copy()
         phfr.width = phfr.width * (float(player_health) / 100.0)
