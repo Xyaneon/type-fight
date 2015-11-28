@@ -3,13 +3,13 @@
 import pygame
 
 pygame.font.init()
-output_font = pygame.font.Font("fonts/Share_Tech_Mono/ShareTechMono-Regular.ttf", 16)
+output_font = pygame.font.Font("fonts/Share_Tech_Mono/ShareTechMono-Regular.ttf", 22)
 output_bkg_color = pygame.color.Color(0, 0, 0, 255/2)
 output_text_color = pygame.color.Color(0, 255, 0, 255*3/4)
 
-output_height = 300
-output_width = 350
 max_output_lines = 5
+output_height = output_font.get_linesize() * max_output_lines
+output_width = 350
 
 class CommandOutput():
     '''Class for displaying flavor text feedback to the player in a chat box
