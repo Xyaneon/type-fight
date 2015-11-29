@@ -151,23 +151,23 @@ class CommandEntry:
             if attack['command'] in ['punch', 'jab']:
                 opponent.take_damage(5, attack['direction'])
                 player.unblock(attack['direction'])
-                output_string = 'Performed ' + attack['direction'] + ' punch'
+                output_string = 'Used ' + attack['direction'] + ' punch'
             elif attack['command'] == 'haymaker':
                 # Haymaker can only come from right or left
                 if attack['direction'] not in ['left', 'right']:
                     attack['direction'] = random.choice(['left', 'right'])
                 opponent.take_damage(8, attack['direction'])
                 player.unblock(attack['direction'])
-                output_string = 'Performed ' + attack['direction'] + ' haymaker'
+                output_string = 'Used ' + attack['direction'] + ' haymaker'
             elif attack['command'] == 'uppercut':
                 # Uppercut can only be aimed at center targets
                 opponent.take_damage(8, 'center')
                 player.unblock('center')
-                output_string = 'Performed uppercut'
+                output_string = 'Used uppercut'
             elif attack['command'] in ['open palm thrust', 'open palm strike', 'op']:
                 opponent.take_damage(2, attack['direction'])
                 player.unblock(attack['direction'])
-                output_string = 'Performed ' + attack['direction'] + ' open palm strike'
+                output_string = 'Used ' + attack['direction'] + ' open palm strike'
             elif attack['command'] in ['block', 'blk']:
                 # The player should block
                 player.block(attack['direction'])
@@ -178,7 +178,7 @@ class CommandEntry:
                 output_string = attack['direction'] + ' block deactivated'
             else:
                 output_string = 'ERROR: Invalid command.'
-        return output_string
+        return output_string.capitalize()
 
     def move_cursor_left(self):
         '''Moves the current cursor position left one character, if able.'''
