@@ -49,6 +49,7 @@ c_output = CommandOutput()
 
 def run_fight(opponent=Opponent(screen)):
     '''Main loop code for each fight. Takes an Opponent to use.'''
+    c_output.add_line('Fight initiated')
     while 1:
         # Event handling
         for event in pygame.event.get():
@@ -76,7 +77,7 @@ def run_fight(opponent=Opponent(screen)):
                                              c_output)
 
         # State updating
-        opponent.update_state(player)
+        opponent.update_state(player, c_output)
 
         # Draw graphics
         c_entry.render()

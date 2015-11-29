@@ -118,11 +118,11 @@ class Opponent:
             self.opponent_image = self.image_defeated
         self.state_frames_remaining = int(math.floor(state_seconds * 60.0))
 
-    def update_state(self, player):
+    def update_state(self, player, c_output):
         '''Implements a simple state machine for determing the Opponent's
         next state and how much more time remains in the current one.
         Also takes a Player instance in case damage needs to be dealt as a
-        result of an attack.'''
+        result of an attack, and a CommandOutput for any output.'''
         if self.state not in ['defeated']:
             self.state_frames_remaining -= 1
             if self.state_frames_remaining <= 0:
@@ -148,6 +148,12 @@ class Opponent:
                     self.state_transition('attack_both', 0.25)
                 elif self.state in ['block_left', 'block_right', 'block_both']:
                     self.state_transition(random.choice(['idle', 'charging_left', 'charging_right', 'charging_both']), 1)
+                    if self.state == 'charging_left':
+                        c_output.add_line('Incoming left attack!')
+                    elif self.state == 'charging_right':
+                        c_output.add_line('Incoming right attack!')
+                    elif self.state == 'charging_both':
+                        c_output.add_line('Incoming center attack!')
                 elif self.state in ['attack_left', 'attack_right', 'attack_both']:
                     self.state_transition('idle', 1)
 
