@@ -139,6 +139,9 @@ class CommandEntry:
             # Temporary debug command to defeat your opponent instantly
             output_string = 'Opponent obliterated.'
             opponent.take_damage(100, 'center')
+        elif txt in ['kick']:
+            # Easter egg for kick command
+            output_string = '404: legs not found.'
         else:
             # Treat this as an actual attack command and get the direction
             try:
