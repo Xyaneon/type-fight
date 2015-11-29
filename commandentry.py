@@ -19,7 +19,7 @@ logging.basicConfig(filename=logname, filemode='w',
                     format='%(levelname)s:%(message)s',
                     level=logging.DEBUG)
 
-prompt_width = 385
+prompt_width = 450
 prompt_height = 55
 pygame.font.init()
 command_font = pygame.font.Font("fonts/Share_Tech_Mono/ShareTechMono-Regular.ttf", 32)

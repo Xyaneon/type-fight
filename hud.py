@@ -29,7 +29,7 @@ class Hud:
         # Main HUD portion
         self.surface.fill(pygame.color.Color(0, 0, 0, 0))
         self.surface.blit(self.hud_bkg_image, self.hud_bkg_image.get_rect())
-        self.surface.blit(c_entry.surface, (345, 775))
+        self.surface.blit(c_entry.surface, (315, 775))
         self.surface.blit(c_output.surface, (34, 90))
         # Health bars
         phfr = self.player_health_fg_rect.copy()
