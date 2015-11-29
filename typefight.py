@@ -17,6 +17,8 @@ window_size = (1080, 911)
 size = width, height = pygame.display.Info().current_w, \
                        pygame.display.Info().current_h
 pygame.display.set_caption("Type Fight!")
+app_icon = pygame.image.load(os.path.join('graphics', 'app_icon_256.png'))
+pygame.display.set_icon(app_icon)
 # Set flags to FULLSCREEN | DOUBLEBUF | HWSURFACE if we add fullscreen support later
 flags = 0
 screen = pygame.display.set_mode(window_size, flags)
