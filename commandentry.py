@@ -19,6 +19,7 @@ logging.basicConfig(filename=logname, filemode='w',
                     format='%(levelname)s:%(message)s',
                     level=logging.DEBUG)
 
+prompt_width = 385
 prompt_height = 55
 pygame.font.init()
 command_font = pygame.font.Font("fonts/Share_Tech_Mono/ShareTechMono-Regular.ttf", 32)
@@ -28,7 +29,7 @@ command_text_color = pygame.color.Color(0, 255, 0)
 class CommandEntry:
     '''Class for managing the command entry window.'''
     def __init__(self):
-        self.surface = pygame.Surface((385, prompt_height), pygame.SRCALPHA)
+        self.surface = pygame.Surface((prompt_width, prompt_height), pygame.SRCALPHA)
         self.rect = self.surface.get_rect()
         self.text = ''
         self.text_surface = command_font.render('>', True, command_text_color)
