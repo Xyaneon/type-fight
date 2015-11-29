@@ -6,27 +6,18 @@ import logging, math, os, platform, pygame, random, sys, webbrowser
 if platform.system() == 'Windows':
     # Logging on Windows
     logdir = os.path.join(os.getenv('APPDATA'), 'typefight')
-    try:
-        os.makedirs(logdir)
-    except OSError:
-        if not os.path.isdir(logdir):
-            raise
-    logname = os.path.join(logdir, 'typefight.log')
-    logging.basicConfig(filename=logname, filemode='w',
-                        format='%(levelname)s:%(message)s',
-                        level=logging.DEBUG)
 else:
     # Assume Linux
     logdir = os.path.join(os.path.expanduser('~'), '.typefight')
-    try:
-        os.makedirs(logdir)
-    except OSError:
-        if not os.path.isdir(logdir):
-            raise
-    logname = os.path.join(logdir, 'typefight.log')
-    logging.basicConfig(filename=logname, filemode='w',
-                        format='%(levelname)s:%(message)s',
-                        level=logging.DEBUG)
+try:
+    os.makedirs(logdir)
+except OSError:
+    if not os.path.isdir(logdir):
+        raise
+logname = os.path.join(logdir, 'typefight.log')
+logging.basicConfig(filename=logname, filemode='w',
+                    format='%(levelname)s:%(message)s',
+                    level=logging.DEBUG)
 
 prompt_height = 55
 pygame.font.init()
