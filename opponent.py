@@ -58,6 +58,7 @@ class Opponent:
         self.state = 'idle'
         self.state_frames_remaining = 60
         self.weak_spots = []
+        self.opponent_name = 'Placeholder'
 
     def get_rect(self):
         '''Returns a pygame.rect.Rect with size and position info.'''
