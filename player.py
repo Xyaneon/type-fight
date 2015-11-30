@@ -104,13 +104,15 @@ class Player:
         '''Updates the player arm rects. Takes the display Surface for
         positioning.'''
         self.updown_juice += (2.0 * math.pi) / 45.0
+        juice_amt = 15 * math.sin(self.updown_juice)
+        screen_rect = screen.get_rect()
 
         # Left arm
         self.la_center_rect = self.left_arm_image.get_rect().copy()
-        self.la_center_rect.right = screen.get_rect().centerx - player_arm_spacing
-        self.la_center_rect.top = screen.get_rect().centery + 15 * math.sin(self.updown_juice)
+        self.la_center_rect.right = screen_rect.centerx - player_arm_spacing
+        self.la_center_rect.top = screen_rect.centery + juice_amt
 
         # Right arm
         self.ra_center_rect = self.right_arm_image.get_rect().copy()
-        self.ra_center_rect.left = screen.get_rect().centerx + player_arm_spacing
-        self.ra_center_rect.top = screen.get_rect().centery + 15 * math.sin(self.updown_juice)
+        self.ra_center_rect.left = screen_rect.centerx + player_arm_spacing
+        self.ra_center_rect.top = screen_rect.centery + juice_amt
