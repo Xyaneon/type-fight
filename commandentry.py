@@ -1,23 +1,6 @@
 #!/bin/python
 
-import logging, math, os, platform, pygame, random, sys, webbrowser
-
-# Logging setup
-if platform.system() == 'Windows':
-    # Logging on Windows
-    logdir = os.path.join(os.getenv('APPDATA'), 'typefight')
-else:
-    # Assume Linux
-    logdir = os.path.join(os.path.expanduser('~'), '.typefight')
-try:
-    os.makedirs(logdir)
-except OSError:
-    if not os.path.isdir(logdir):
-        raise
-logname = os.path.join(logdir, 'typefight.log')
-logging.basicConfig(filename=logname, filemode='w',
-                    format='%(levelname)s:%(message)s',
-                    level=logging.DEBUG)
+import logging, math, pygame, random, sys, webbrowser
 
 prompt_width = 450
 prompt_height = 55

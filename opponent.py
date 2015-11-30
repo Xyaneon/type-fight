@@ -1,6 +1,7 @@
 #!/bin/python
 
 import math, os, pygame, random
+from gameglobals import *
 
 # Sound effects for attacks
 pygame.mixer.init()
@@ -117,7 +118,7 @@ class Opponent:
                                                  self.image_damaged_down])
         if state == 'defeated':
             self.opponent_image = self.image_defeated
-        self.state_frames_remaining = int(math.floor(state_seconds * 60.0))
+        self.state_frames_remaining = int(math.floor(state_seconds * float(FPS_TARGET)))
 
     def update_state(self, player, c_output):
         '''Implements a simple state machine for determing the Opponent's
@@ -165,7 +166,7 @@ class Opponent:
         center_rect = self.opponent_image.get_rect().copy()
         center_rect.centerx = screen.get_rect().centerx
         if self.state in ['idle', 'damaged', 'charging_left', 'charging_right']:
-            self.updown_juice += (2.0 * math.pi) / 60.0
+            self.updown_juice += (2.0 * math.pi) / float(FPS_TARGET)
             center_rect.centery = screen.get_rect().centery + 10 * math.sin(self.updown_juice)
         elif self.state == 'defeated':
             self.updown_juice += 5

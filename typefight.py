@@ -2,6 +2,8 @@
 
 import os, pygame, pygame.mixer, sys
 from pygame.locals import *
+from gameglobals import *
+import gamelog
 from commandentry import CommandEntry
 from commandoutput import CommandOutput
 from hud import Hud
@@ -30,6 +32,7 @@ fight_bkg = pygame.image.load(os.path.join('graphics', 'fight_bkg.png')).convert
 win_fg = pygame.image.load(os.path.join('graphics', 'win_fg.png')).convert_alpha()
 lose_fg = pygame.image.load(os.path.join('graphics', 'lose_fg.png')).convert_alpha()
 pause_fg = pygame.image.load(os.path.join('graphics', 'pause_menu.png')).convert_alpha()
+gamelog.log_display_info()
 
 pygame.key.set_repeat(500, 50)
 
@@ -107,7 +110,7 @@ def run_fight(opponent=Opponent(screen)):
         pygame.display.flip()
 
         # Proceed to next frame. We are aiming to run at 60 FPS
-        fps_clock.tick(60)
+        fps_clock.tick(FPS_TARGET)
 
 #*****************
 # Main game code *
