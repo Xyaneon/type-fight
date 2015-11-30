@@ -1,0 +1,25 @@
+@font-face {
+  font-family: Play;
+  src: url("../../fonts/Play/Play-Regular.ttf");
+}
+
+@font-face {
+  font-family: ShareTechMono;
+  src: url("../../fonts/Share_Tech_Mono/ShareTechMono-Regular.ttf");
+}
+
+* {
+  font-family: Play, sans-serif;
+  color: #00ff00;
+}
+
+body {
+  background-color: #444444;
+}
+
+code {
+  font-family: ShareTechMono, monospace;
+  color: #00ff00;
+  background-color: black;
+  border-radius: 2px;
+}
