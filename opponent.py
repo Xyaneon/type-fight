@@ -15,39 +15,22 @@ class Opponent:
                                        screen.get_height()),
                                       pygame.SRCALPHA).copy()
         # Asset loading
-        img_folder = 'Mockup'
-        self.image_neutral = pygame.image.load(os.path.join('graphics', img_folder,
-                                  'opponent_neutral.png')).convert_alpha()
-        self.image_block_left = pygame.image.load(os.path.join('graphics', img_folder,
-                                  'opponent_block_left.png')).convert_alpha()
-        self.image_block_right = pygame.image.load(os.path.join('graphics', img_folder,
-                                  'opponent_block_right.png')).convert_alpha()
-        self.image_block_both = pygame.image.load(os.path.join('graphics', img_folder,
-                                  'opponent_block_both.png')).convert_alpha()
-        self.image_charging_left = pygame.image.load(os.path.join('graphics', img_folder,
-                                  'opponent_charging_left.png')).convert_alpha()
-        self.image_charging_right = pygame.image.load(os.path.join('graphics', img_folder,
-                                  'opponent_charging_right.png')).convert_alpha()
-        self.image_charging_both = pygame.image.load(os.path.join('graphics', img_folder,
-                                  'opponent_charging_both.png')).convert_alpha()
-        self.image_attack_left = pygame.image.load(os.path.join('graphics', img_folder,
-                                  'opponent_attack_left.png')).convert_alpha()
-        self.image_attack_right = pygame.image.load(os.path.join('graphics', img_folder,
-                                  'opponent_attack_right.png')).convert_alpha()
-        self.image_attack_both = pygame.image.load(os.path.join('graphics', img_folder,
-                                  'opponent_attack_both.png')).convert_alpha()
-        self.image_damaged = pygame.image.load(os.path.join('graphics', img_folder,
-                                  'opponent_damaged.png')).convert_alpha()
-        self.image_damaged_left = pygame.image.load(os.path.join('graphics', img_folder,
-                                  'opponent_damaged_left.png')).convert_alpha()
-        self.image_damaged_right = pygame.image.load(os.path.join('graphics', img_folder,
-                                  'opponent_damaged_right.png')).convert_alpha()
-        self.image_damaged_up = pygame.image.load(os.path.join('graphics', img_folder,
-                                  'opponent_damaged_up.png')).convert_alpha()
-        self.image_damaged_down = pygame.image.load(os.path.join('graphics', img_folder,
-                                  'opponent_damaged_down.png')).convert_alpha()
-        self.image_defeated = pygame.image.load(os.path.join('graphics', img_folder,
-                                  'opponent_defeated.png')).convert_alpha()
+        self.image_neutral = self._load_image('opponent_neutral.png')
+        self.image_block_left = self._load_image('opponent_block_left.png')
+        self.image_block_right = self._load_image('opponent_block_right.png')
+        self.image_block_both = self._load_image('opponent_block_both.png')
+        self.image_charging_left = self._load_image('opponent_charging_left.png')
+        self.image_charging_right = self._load_image('opponent_charging_right.png')
+        self.image_charging_both = self._load_image('opponent_charging_both.png')
+        self.image_attack_left = self._load_image('opponent_attack_left.png')
+        self.image_attack_right = self._load_image('opponent_attack_right.png')
+        self.image_attack_both = self._load_image('opponent_attack_both.png')
+        self.image_damaged = self._load_image('opponent_damaged.png')
+        self.image_damaged_left = self._load_image('opponent_damaged_left.png')
+        self.image_damaged_right = self._load_image('opponent_damaged_right.png')
+        self.image_damaged_up = self._load_image('opponent_damaged_up.png')
+        self.image_damaged_down = self._load_image('opponent_damaged_down.png')
+        self.image_defeated = self._load_image('opponent_defeated.png')
         # Member variable setup
         self.opponent_image = self.image_neutral
         self.rect = self.opponent_image.get_rect()
@@ -60,6 +43,11 @@ class Opponent:
         self.state_frames_remaining = 60
         self.weak_spots = []
         self.opponent_name = '[Placeholder]'
+
+    def _load_image(self, filename):
+        '''Internal function for loading image assets.'''
+        path = os.path.join('graphics', 'Mockup', filename)
+        return pygame.image.load(path).convert_alpha()
 
     def get_rect(self):
         '''Returns a pygame.rect.Rect with size and position info.'''
