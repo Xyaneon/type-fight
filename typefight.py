@@ -29,6 +29,7 @@ player = Player(screen)
 fight_bkg = pygame.image.load(os.path.join('graphics', 'fight_bkg.png')).convert()
 win_fg = pygame.image.load(os.path.join('graphics', 'win_fg.png')).convert_alpha()
 lose_fg = pygame.image.load(os.path.join('graphics', 'lose_fg.png')).convert_alpha()
+pause_fg = pygame.image.load(os.path.join('graphics', 'pause_menu.png')).convert_alpha()
 
 pygame.key.set_repeat(500, 50)
 
@@ -98,6 +99,7 @@ def run_fight(opponent=Opponent(screen)):
 
         screen.blit(game_surface, game_surface.get_rect())
         screen.blit(hud_surface, hud_surface.get_rect())
+        #screen.blit(pause_fg, screen.get_rect())
         if opponent.state == 'defeated':
             screen.blit(win_fg, screen.get_rect())
         elif player.health_percent <= 0:
