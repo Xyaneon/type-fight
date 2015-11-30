@@ -51,6 +51,7 @@ c_output = CommandOutput()
 
 def run_fight(opponent=Opponent(screen)):
     '''Main loop code for each fight. Takes an Opponent to use.'''
+    hud.set_opponent_name(opponent.opponent_name)
     c_output.add_line('Fight initiated')
     while 1:
         # Event handling
@@ -88,7 +89,7 @@ def run_fight(opponent=Opponent(screen)):
         hud_surface = hud.render(c_entry,
                                  c_output,
                                  player.health_percent,
-                                 opponent.health_percent)
+                                 opponent)
         game_surface.blit(opponent.render(screen), opponent.get_rect())
 
         player.render(screen)
