@@ -55,6 +55,9 @@ c_output = CommandOutput()
 
 def run_fight(opponent=Opponent(screen)):
     '''Main loop code for each fight. Takes an Opponent to use.'''
+    menu_button_rect = pygame.Rect(0, 0, 148, 40)
+    menu_button_rect.right = screen.get_rect().right
+    paused = False
     hud.set_opponent_name(opponent.opponent_name)
     c_output.add_line('Fight initiated')
     while 1:
@@ -69,8 +72,9 @@ def run_fight(opponent=Opponent(screen)):
                 if event.type in mouse_button_list:
                     mouse_button = event.button
                     if event.type is MOUSEBUTTONDOWN:
-                        # TODO: Mouse button down handling code
-                        pass
+                        if menu_button_rect.collidepoint(pygame.mouse.get_pos()):
+                            # Toggle pause menu
+                            paused = not paused
                     else:
                         # TODO: Assume mouse button up
                         pass
@@ -78,10 +82,11 @@ def run_fight(opponent=Opponent(screen)):
                     # TODO: Handle mouse movement event
                     pass
             elif event.type is KEYDOWN:
-                c_entry.handle_keydown_event(event,
-                                             player,
-                                             opponent,
-                                             c_output)
+                if not paused:
+                    c_entry.handle_keydown_event(event,
+                                                 player,
+                                                 opponent,
+                                                 c_output)
 
         # State updating
         opponent.update_state(player, c_output)
@@ -102,7 +107,8 @@ def run_fight(opponent=Opponent(screen)):
 
         screen.blit(game_surface, game_surface.get_rect())
         screen.blit(hud_surface, hud_surface.get_rect())
-        #screen.blit(pause_fg, screen.get_rect())
+        if paused:
+            screen.blit(pause_fg, screen.get_rect())
         if opponent.state == 'defeated':
             screen.blit(win_fg, screen.get_rect())
         elif player.health_percent <= 0:
