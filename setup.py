@@ -2,7 +2,7 @@ from cx_Freeze import setup, Executable
 
 # Dependencies are automatically detected, but it might need
 # fine tuning.
-buildOptions = dict(packages = [], excludes = [], include_files = ['fonts/', 'graphics/', 'sounds/', 'music/', 'help/'])
+buildOptions = dict(packages = [], excludes = [], include_files = ['fonts/', 'graphics/', 'sounds/', 'music/', 'help/', 'app_icon_256.ico'])
 
 import sys
 base = 'Win32GUI' if sys.platform=='win32' else None
@@ -16,7 +16,7 @@ shortcut_table = [
      None,                      # Arguments
      "A typing game with fighting robots.",  # Description
      None,                      # Hotkey
-     None,                      # Icon
+     None,        # Icon
      None,                      # IconIndex
      None,                      # ShowCmd
      'TARGETDIR'                # WkDir
@@ -29,7 +29,7 @@ shortcut_table = [
      None,                      # Arguments
      "A typing game with fighting robots.",  # Description
      None,                      # Hotkey
-     None,                      # Icon
+     None,        # Icon
      None,                      # IconIndex
      None,                      # ShowCmd
      'TARGETDIR'                # WkDir
@@ -53,11 +53,11 @@ msi_data = {"Shortcut": shortcut_table}
 bdist_msi_options = {'data': msi_data, 'upgrade_code': '{bd944f23-280b-49c4-8c25-ebc5823f18e0}'}
 
 executables = [
-    Executable('typefight.py', base=base)
+    Executable('typefight.py', base=base, icon="app_icon_256.ico")
 ]
 
 setup(name='TypeFight',
-      version = '0.3',
+      version = '0.4',
       description = 'A typing game with fighting robots',
       options = dict(build_exe = buildOptions, bdist_msi = bdist_msi_options),
       executables = executables)

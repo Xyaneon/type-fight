@@ -1,6 +1,6 @@
 #!/bin/python
 
-import logging, math, pygame, random, sys, webbrowser
+import logging, math, os, pygame, random, sys, webbrowser
 
 prompt_width = 450
 prompt_height = 55
@@ -105,7 +105,8 @@ class CommandEntry:
         elif txt == 'help':
             # Show the game help file in the browser
             output_string = 'INFO: Displaying manual.'
-            webbrowser.open_new('help/typefight.html')
+            help_location = os.path.join(os.getcwd(), 'help/typefight.html')
+            webbrowser.open_new(help_location)
         elif txt in ['forfeit', 'suicide', 'give up', 'you win', 'seppuku', 'hara kiri']:
             # Temporary debug command to kill yourself
             output_string = 'Self-destruct activated.'
