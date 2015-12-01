@@ -6,7 +6,7 @@ This is a first-person fighting game where you control your robot fighter with a
 ## Group Members
 - Christopher Horton - *Programmer*
 - Jeffrey Cheng - *Artist*
-- Jonathan Medina - *Level designer*
+- Jonathan Medina - *Level designer / QA*
 
 ## License
 Currently licensed under the GNU GPLv3. See the LICENSE file for details.
