@@ -12,14 +12,10 @@ player_arm_spacing = 128 / 2
 class Player:
     '''Class representing the player's character onscreen'.'''
     def __init__(self, screen):
-        self.img_left_arm = pygame.image.load(os.path.join('graphics',
-                                         'player_left_arm.png')).convert_alpha()
-        self.img_right_arm = pygame.image.load(os.path.join('graphics',
-                                          'player_right_arm.png')).convert_alpha()
-        self.img_left_block = pygame.image.load(os.path.join('graphics',
-                                         'player_block_left.png')).convert_alpha()
-        self.img_right_block = pygame.image.load(os.path.join('graphics',
-                                          'player_block_right.png')).convert_alpha()
+        self.img_left_arm = self._load_image('player_left_arm.png')
+        self.img_right_arm = self._load_image('player_right_arm.png')
+        self.img_left_block = self._load_image('player_block_left.png')
+        self.img_right_block = self._load_image('player_block_right.png')
         self.left_arm_image = self.img_left_arm
         self.right_arm_image = self.img_right_arm
         self.la_center_rect = self.left_arm_image.get_rect().copy()
@@ -28,6 +24,11 @@ class Player:
         self.health_percent = 100
         self.left_arm_state = 'idle'
         self.right_arm_state = 'idle'
+
+    def _load_image(self, filename):
+        '''Internal function for loading image assets.'''
+        path = os.path.join('graphics', filename)
+        return pygame.image.load(path).convert_alpha()
 
     def take_damage(self, damage, direction):
         '''Deals damage to this Player.'''
