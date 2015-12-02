@@ -72,7 +72,7 @@ def run_fight(opponent=Opponent(screen)):
                 if event.type in mouse_button_list:
                     mouse_button = event.button
                     if event.type is MOUSEBUTTONDOWN:
-                        if menu_button_rect.collidepoint(pygame.mouse.get_pos()):
+                        if menu_button_rect.collidepoint(event.pos):
                             # Toggle pause menu
                             paused = not paused
                     else:
