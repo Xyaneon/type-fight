@@ -56,6 +56,7 @@ c_output = CommandOutput()
 def run_fight(opponent=Opponent(screen)):
     '''Main loop code for each fight. Takes an Opponent to use.'''
     menu_button_rect = pygame.Rect(0, 0, 148, 40)
+    resume_button_rect = pygame.Rect(150, 330, 770, 100)
     menu_button_rect.right = screen.get_rect().right
     paused = False
     hud.set_opponent_name(opponent.opponent_name)
@@ -75,6 +76,8 @@ def run_fight(opponent=Opponent(screen)):
                         if menu_button_rect.collidepoint(event.pos):
                             # Toggle pause menu
                             paused = not paused
+                        elif resume_button_rect.collidepoint(event.pos):
+                            paused = False
                     else:
                         # TODO: Assume mouse button up
                         pass
