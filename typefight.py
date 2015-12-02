@@ -1,6 +1,6 @@
 #!/bin/python
 
-import os, pygame, pygame.mixer, sys
+import os, pygame, pygame.mixer, sys, webbrowser
 from pygame.locals import *
 from gameglobals import *
 import gamelog
@@ -56,7 +56,9 @@ c_output = CommandOutput()
 def run_fight(opponent=Opponent(screen)):
     '''Main loop code for each fight. Takes an Opponent to use.'''
     menu_button_rect = pygame.Rect(0, 0, 148, 40)
-    resume_button_rect = pygame.Rect(150, 330, 770, 100)
+    resume_button_rect = pygame.Rect(156, 336, 766, 103)
+    help_button_rect = pygame.Rect(156, 460, 766, 103)
+    quit_button_rect = pygame.Rect(156, 583, 766, 103)
     menu_button_rect.right = screen.get_rect().right
     paused = False
     hud.set_opponent_name(opponent.opponent_name)
@@ -78,6 +80,14 @@ def run_fight(opponent=Opponent(screen)):
                             paused = not paused
                         elif resume_button_rect.collidepoint(event.pos):
                             paused = False
+                        elif help_button_rect.collidepoint(event.pos):
+                            if paused:
+                                help_location = os.path.join(os.getcwd(), 'help/typefight.html')
+                                webbrowser.open_new(help_location)
+                        elif quit_button_rect.collidepoint(event.pos):
+                            if paused:
+                                pygame.quit()
+                                sys.exit()
                     else:
                         # TODO: Assume mouse button up
                         pass
