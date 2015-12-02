@@ -93,8 +93,9 @@ def run_fight(opponent=Opponent(screen)):
             opponent.update_state(player, c_output)
 
         # Draw graphics
-        c_entry.render()
-        c_output.render()
+        if not paused:
+            c_entry.render()
+            c_output.render()
         game_surface.blit(fight_bkg, game_surface.get_rect())
         hud_surface = hud.render(c_entry,
                                  c_output,
