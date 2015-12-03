@@ -16,13 +16,11 @@ fps_clock = pygame.time.Clock()
 
 # Game window setup
 window_size = (1080, 911)
-size = width, height = pygame.display.Info().current_w, \
-                       pygame.display.Info().current_h
 pygame.display.set_caption("Type Fight!")
 app_icon = pygame.image.load(os.path.join('graphics', 'app_icon_256.png'))
 pygame.display.set_icon(app_icon)
 # Set flags to FULLSCREEN | DOUBLEBUF | HWSURFACE if we add fullscreen support later
-flags = 0
+flags = HWSURFACE|DOUBLEBUF|RESIZABLE
 screen = pygame.display.set_mode(window_size, flags)
 screen.set_alpha(None)
 game_surface = pygame.Surface((screen.get_width(), screen.get_height()))
@@ -39,7 +37,7 @@ pygame.key.set_repeat(500, 50)
 # Mouse setup
 mouse_list = [MOUSEMOTION, MOUSEBUTTONDOWN, MOUSEBUTTONUP]
 mouse_button_list = [MOUSEBUTTONDOWN, MOUSEBUTTONUP]
-pygame.event.set_allowed([QUIT, MOUSEMOTION, MOUSEBUTTONDOWN, MOUSEBUTTONUP])
+pygame.event.set_allowed([QUIT, VIDEORESIZE, MOUSEMOTION, MOUSEBUTTONDOWN, MOUSEBUTTONUP])
 
 # Pygame mixer setup for sounds
 try:
@@ -47,7 +45,7 @@ try:
     mus_fight = pygame.mixer.music.load(os.path.join('music', 'Harmful or Fatal.ogg'))
     pygame.mixer.music.play()
 except Exception as e:
-    print e
+    logging.exception('Could not play game music')
 
 # Main objects setup
 c_entry = CommandEntry()
@@ -55,6 +53,9 @@ c_output = CommandOutput()
 
 def run_fight(opponent=Opponent(screen)):
     '''Main loop code for each fight. Takes an Opponent to use.'''
+    window_size = (1080, 911)
+    screen = pygame.display.set_mode(window_size, flags)
+    screen.set_alpha(None)
     menu_button_rect = pygame.Rect(0, 0, 148, 40)
     resume_button_rect = pygame.Rect(156, 336, 766, 103)
     help_button_rect = pygame.Rect(156, 460, 766, 103)
@@ -69,6 +70,10 @@ def run_fight(opponent=Opponent(screen)):
             if event.type is QUIT:
                 pygame.quit()
                 sys.exit()
+            if event.type is VIDEORESIZE:
+                # The game window is being resized
+                window_size = event.dict['size']
+                screen = pygame.display.set_mode(window_size, flags)
             elif event.type in mouse_list:
                 mouse_x, mouse_y = event.pos
                 mouse_event = event
@@ -121,14 +126,16 @@ def run_fight(opponent=Opponent(screen)):
         game_surface.blit(player.left_arm_image, player.la_center_rect)
         game_surface.blit(player.right_arm_image, player.ra_center_rect)
 
-        screen.blit(game_surface, game_surface.get_rect())
-        screen.blit(hud_surface, hud_surface.get_rect())
+        game_surface.blit(hud_surface, hud_surface.get_rect())
         if paused:
-            screen.blit(pause_fg, screen.get_rect())
+            game_surface.blit(pause_fg, screen.get_rect())
         if opponent.state == 'defeated':
-            screen.blit(win_fg, screen.get_rect())
+            game_surface.blit(win_fg, screen.get_rect())
         elif player.health_percent <= 0:
-            screen.blit(lose_fg, screen.get_rect())
+            game_surface.blit(lose_fg, screen.get_rect())
+
+        # Display all rendered graphics
+        screen.blit(pygame.transform.scale(game_surface, window_size), (0,0))
         pygame.display.flip()
 
         # Proceed to next frame. We are aiming to run at 60 FPS
