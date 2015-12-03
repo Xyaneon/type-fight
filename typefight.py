@@ -15,7 +15,7 @@ pygame.init()
 fps_clock = pygame.time.Clock()
 
 # Game window setup
-window_size = (1080, 911)
+window_size = DEFAULT_WINDOW_SIZE
 pygame.display.set_caption("Type Fight!")
 app_icon = pygame.image.load(os.path.join('graphics', 'app_icon_256.png'))
 pygame.display.set_icon(app_icon)

@@ -5,6 +5,7 @@ import pygame
 # Global variables and constants
 GAME_VERSION = '0.4'
 FPS_TARGET = 60
+DEFAULT_WINDOW_SIZE = (1080, 911)
 
 # Global functions
 def scale_rect(rect, scale_x, scale_y):
