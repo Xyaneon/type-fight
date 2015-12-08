@@ -23,6 +23,7 @@ logging.basicConfig(filename=logname, filemode='w',
 
 # Write initial info to log
 logging.info('TypeFight! version ' + GAME_VERSION)
+logging.info('Pygame version: ' + pygame.version.ver)
 logging.info('Platform: ' + platform.system())
 logging.info('FPS target: ' + str(FPS_TARGET))
 logging.info('Logging further messages at log level ' + \
