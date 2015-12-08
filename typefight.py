@@ -122,7 +122,7 @@ def run_fight(opponent=Opponent(screen)):
         game_surface.blit(opponent.render(), opponent.get_rect())
 
         if not paused:
-            player.render(screen)
+            player.render()
         game_surface.blit(player.left_arm_image, player.la_center_rect)
         game_surface.blit(player.right_arm_image, player.ra_center_rect)
 

@@ -1,6 +1,7 @@
 #!/bin/python
 
 import math, os, pygame
+from gameglobals import *
 
 # Sound effects for attacks
 pygame.mixer.init()
@@ -101,19 +102,18 @@ class Player:
             self.right_arm_state = 'idle'
             self.right_arm_image = self.img_right_arm
 
-    def render(self, screen):
+    def render(self):
         '''Updates the player arm rects. Takes the display Surface for
         positioning.'''
         self.updown_juice += (2.0 * math.pi) / 45.0
         juice_amt = 15 * math.sin(self.updown_juice)
-        screen_rect = screen.get_rect()
 
         # Left arm
         self.la_center_rect = self.left_arm_image.get_rect().copy()
-        self.la_center_rect.right = screen_rect.centerx - player_arm_spacing
-        self.la_center_rect.top = screen_rect.centery + juice_amt
+        self.la_center_rect.right = DEFAULT_WINDOW_CENTERX - player_arm_spacing
+        self.la_center_rect.top = DEFAULT_WINDOW_CENTERY + juice_amt
 
         # Right arm
         self.ra_center_rect = self.right_arm_image.get_rect().copy()
-        self.ra_center_rect.left = screen_rect.centerx + player_arm_spacing
-        self.ra_center_rect.top = screen_rect.centery + juice_amt
+        self.ra_center_rect.left = DEFAULT_WINDOW_CENTERX + player_arm_spacing
+        self.ra_center_rect.top = DEFAULT_WINDOW_CENTERY + juice_amt
