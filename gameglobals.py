@@ -14,12 +14,12 @@ def scale_rect(rect, scale_x, scale_y):
     '''Scales a Rect object in response to a display size change, and returns
     a new Rect.'''
     # Idea from http://stackoverflow.com/a/20003829/3775798
-    new_rect = rect.copy()
-    rect.width *= scale_x
-    rect.height *= scale_y
-    rect.x *= scale_x
-    rect.y *= scale_y
-    return new_rect
+    r = rect.copy()
+    r.width *= scale_x
+    r.height *= scale_y
+    r.x *= scale_x
+    r.y *= scale_y
+    return r
 
 def scale_rect_ip(rect, scale_x, scale_y):
     '''Scales a Rect object in response to a display size change, in place.'''
