@@ -6,6 +6,8 @@ import pygame
 GAME_VERSION = '0.4'
 FPS_TARGET = 60
 DEFAULT_WINDOW_SIZE = (1080, 911)
+DEFAULT_WINDOW_CENTERX = DEFAULT_WINDOW_SIZE[0] / 2
+DEFAULT_WINDOW_CENTERY = DEFAULT_WINDOW_SIZE[1] / 2
 
 # Global functions
 def scale_rect(rect, scale_x, scale_y):
