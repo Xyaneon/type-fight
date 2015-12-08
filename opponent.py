@@ -147,21 +147,20 @@ class Opponent:
                 elif self.state in ['attack_left', 'attack_right', 'attack_both']:
                     self.state_transition('idle', 1)
 
-    def render(self, screen):
-        '''Returns a pygame.Surface with the rendered opponent. This needs the
-        display Surface passed in to properly position the image.
+    def render(self):
+        '''Returns a pygame.Surface with the rendered opponent.
         This also updates the rect variable for this instance.'''
         center_rect = self.opponent_image.get_rect().copy()
-        center_rect.centerx = screen.get_rect().centerx
+        center_rect.centerx = DEFAULT_WINDOW_SIZE[0] / 2
         if self.state in ['idle', 'damaged', 'charging_left', 'charging_right']:
             self.updown_juice += (2.0 * math.pi) / float(FPS_TARGET)
-            center_rect.centery = screen.get_rect().centery + 10 * math.sin(self.updown_juice)
+            center_rect.centery = DEFAULT_WINDOW_SIZE[1] / 2 + 10 * math.sin(self.updown_juice)
         elif self.state == 'defeated':
             self.updown_juice += 5
-            center_rect.centery = screen.get_rect().centery + self.updown_juice
+            center_rect.centery = DEFAULT_WINDOW_SIZE[1] / 2 + self.updown_juice
         else:
             self.updown_juice = 0
-            center_rect.centery = screen.get_rect().centery
+            center_rect.centery = DEFAULT_WINDOW_SIZE[1] / 2
         self.rect = center_rect
         return self.opponent_image
 

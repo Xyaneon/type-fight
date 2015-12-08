@@ -119,7 +119,7 @@ def run_fight(opponent=Opponent(screen)):
                                  c_output,
                                  player.health_percent,
                                  opponent)
-        game_surface.blit(opponent.render(screen), opponent.get_rect())
+        game_surface.blit(opponent.render(), opponent.get_rect())
 
         if not paused:
             player.render(screen)
