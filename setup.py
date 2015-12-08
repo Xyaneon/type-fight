@@ -57,7 +57,7 @@ executables = [
 ]
 
 setup(name='TypeFight',
-      version = '0.4',
+      version = '0.5',
       description = 'A typing game with fighting robots',
       options = dict(build_exe = buildOptions, bdist_msi = bdist_msi_options),
       executables = executables)
