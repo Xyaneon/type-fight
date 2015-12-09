@@ -155,7 +155,7 @@ class CommandEntry:
                 opponent.take_damage(5, attack['direction'])
                 player.unblock(attack['direction'])
                 output_string = 'Used ' + attack['direction'] + ' punch'
-            elif attack['command'] == 'haymaker':
+            elif attack['command'] in ['haymaker', 'hook']:
                 # Haymaker can only come from right or left
                 if attack['direction'] not in ['left', 'right']:
                     attack['direction'] = random.choice(['left', 'right'])
@@ -167,10 +167,10 @@ class CommandEntry:
                 opponent.take_damage(8, 'center')
                 player.unblock('center')
                 output_string = 'Used uppercut'
-            elif attack['command'] in ['open palm thrust', 'open palm strike', 'op']:
+            elif attack['command'] in ['open palm thrust', 'open palm strike', 'slap']:
                 opponent.take_damage(2, attack['direction'])
                 player.unblock(attack['direction'])
-                output_string = 'Used ' + attack['direction'] + ' open palm strike'
+                output_string = 'Used ' + attack['direction'] + ' slap'
             elif attack['command'] in ['block', 'blk']:
                 # The player should block
                 player.block(attack['direction'])
