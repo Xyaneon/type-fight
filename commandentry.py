@@ -2,7 +2,7 @@
 
 import logging, math, os, pygame, random, sys, webbrowser
 
-prompt_width = 450
+prompt_width = 500
 prompt_height = 55
 pygame.font.init()
 command_font = pygame.font.Font("fonts/Share_Tech_Mono/ShareTechMono-Regular.ttf", 32)

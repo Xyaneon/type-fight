@@ -152,15 +152,16 @@ class Opponent:
         This also updates the rect variable for this instance.'''
         center_rect = self.opponent_image.get_rect().copy()
         center_rect.centerx = DEFAULT_WINDOW_CENTERX
+        y_base = DEFAULT_WINDOW_CENTERY + 50
         if self.state in ['idle', 'damaged', 'charging_left', 'charging_right']:
             self.updown_juice += (2.0 * math.pi) / float(FPS_TARGET)
-            center_rect.centery = DEFAULT_WINDOW_CENTERY + 10 * math.sin(self.updown_juice)
+            center_rect.centery = y_base +  10 * math.sin(self.updown_juice)
         elif self.state == 'defeated':
             self.updown_juice += 5
-            center_rect.centery = DEFAULT_WINDOW_CENTERY + self.updown_juice
+            center_rect.centery = y_base + self.updown_juice
         else:
             self.updown_juice = 0
-            center_rect.centery = DEFAULT_WINDOW_CENTERY
+            center_rect.centery = y_base
         self.rect = center_rect
         return self.opponent_image
 
