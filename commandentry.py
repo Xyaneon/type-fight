@@ -58,7 +58,10 @@ class CommandEntry:
             self.insert_char_at_cursor(event.unicode)
         # Update rendered command text after a keypress instead of doing it
         # continually in render()
-        self.text_surface = command_font.render('>' + self.text, True, command_text_color)
+        self.text_surface = command_font.render('>' + self.text,
+                                                True,
+                                                command_text_color,
+                                                pygame.Color(0, 0, 0))
 
     def parse_attack(self, attack_string):
         '''Returns a dictionary with the attack direction and command
