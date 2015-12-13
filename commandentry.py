@@ -2,6 +2,10 @@
 
 import logging, math, os, pygame, random, sys, webbrowser
 
+# Sound effects
+pygame.mixer.init()
+snd_valid = pygame.mixer.Sound(os.path.join('sounds', 'Robot_blip-Marianne_Gagnon-120342607.wav'))
+
 prompt_width = 500
 prompt_height = 55
 pygame.font.init()
@@ -152,11 +156,13 @@ class CommandEntry:
                 attack = {'command': 'punch', 'direction': 'center'}
 
             if attack['command'] in ['punch', 'jab', 'hit', 'strike', 'attack']:
+                snd_valid.play()
                 opponent.take_damage(5, attack['direction'])
                 player.unblock(attack['direction'])
                 output_string = 'Used ' + attack['direction'] + ' punch'
             elif attack['command'] in ['haymaker', 'hook']:
                 # Haymaker can only come from right or left
+                snd_valid.play()
                 if attack['direction'] not in ['left', 'right']:
                     attack['direction'] = random.choice(['left', 'right'])
                 opponent.take_damage(8, attack['direction'])
@@ -164,19 +170,23 @@ class CommandEntry:
                 output_string = 'Used ' + attack['direction'] + ' haymaker'
             elif attack['command'] == 'uppercut':
                 # Uppercut can only be aimed at center targets
+                snd_valid.play()
                 opponent.take_damage(8, 'center')
                 player.unblock('center')
                 output_string = 'Used uppercut'
             elif attack['command'] in ['open palm thrust', 'open palm strike', 'slap']:
+                snd_valid.play()
                 opponent.take_damage(2, attack['direction'])
                 player.unblock(attack['direction'])
                 output_string = 'Used ' + attack['direction'] + ' slap'
             elif attack['command'] in ['block', 'blk']:
                 # The player should block
+                snd_valid.play()
                 player.block(attack['direction'])
                 output_string = attack['direction'] + ' block activated'
             elif attack['command'] in ['unblock', 'unblk']:
                 # The player should unblock
+                snd_valid.play()
                 player.unblock(attack['direction'])
                 output_string = attack['direction'] + ' block deactivated'
             else:
