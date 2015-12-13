@@ -4,6 +4,7 @@ import logging, math, os, pygame, random, sys, webbrowser
 
 # Sound effects
 pygame.mixer.init()
+snd_blocking = pygame.mixer.Sound(os.path.join('sounds', 'IM Reply Computer-SoundBible.com-628645943.wav'))
 snd_valid = pygame.mixer.Sound(os.path.join('sounds', 'Robot_blip-Marianne_Gagnon-120342607.wav'))
 
 prompt_width = 500
@@ -182,11 +183,13 @@ class CommandEntry:
             elif attack['command'] in ['block', 'blk']:
                 # The player should block
                 snd_valid.play()
+                snd_blocking.play()
                 player.block(attack['direction'])
                 output_string = attack['direction'] + ' block activated'
             elif attack['command'] in ['unblock', 'unblk']:
                 # The player should unblock
                 snd_valid.play()
+                snd_blocking.play()
                 player.unblock(attack['direction'])
                 output_string = attack['direction'] + ' block deactivated'
             else:

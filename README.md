@@ -25,6 +25,10 @@ http://creativecommons.org/licenses/by/3.0/
 
 All sound effects used are from the public domain, except the following which we are providing attribution for:
 
+"IM Reply Computer" from SoundBible.com<br />
+Licensed under Creative Commons: Attribution 3.0<br />
+https://creativecommons.org/licenses/by/3.0/
+
 "Swords Collide" from SoundBible.com<br />
 Licensed under Creative Commons: Attribution 3.0<br />
 https://creativecommons.org/licenses/by/3.0/
