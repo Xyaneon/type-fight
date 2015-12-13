@@ -27,9 +27,8 @@ class CommandOutput():
     def add_line(self, line_text):
         '''Adds a new line to the output, while staying within the max line
         limit. We use a collections.deque for this.'''
-        time_string = datetime.datetime.strftime(datetime.datetime.now(), '%H:%M:%S')
         self.text_surface.fill(pygame.Color(0, 0, 0, 0))
-        self.text_lines.append('[' + time_string + ']: ' + line_text)
+        self.text_lines.append(line_text)
         line_surfaces = []
         for line in self.text_lines:
             line_surfaces.append(output_font.render(line, True, output_text_color))
