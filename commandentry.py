@@ -37,13 +37,16 @@ class CommandEntry:
         '''Handles a KEYDOWN event, which is very important for this particular
         class since it handles text input from the keyboard.
         Also takes the Player, Opponent and CommandOutput objects for
-        modification.'''
+        modification.
+        Returns True if the player command opened the pause menu.'''
+
+        pause_command = False
 
         # Don't allow the player to keep entering commands after they win
         if opponent.state == 'defeated':
-            return
+            return pause_command
         if player.health_percent <= 0:
-            return
+            return pause_command
 
         if event.key == pygame.K_BACKSPACE:
             # Delete text before cursor.
@@ -56,9 +59,15 @@ class CommandEntry:
         elif event.key == pygame.K_RIGHT:
             self.move_cursor_right()
         elif event.key == pygame.K_RETURN:
-            output_line = self.process_command(player, opponent)
-            # Update output window if needed
-            c_output.add_line(output_line)
+            if self.text.strip().lower() in ['menu', 'pause']:
+                # Special case for pausing
+                pause_command = True
+                self.text = ''
+                self.cursor_pos = 0
+            else:
+                output_line = self.process_command(player, opponent)
+                # Update output window if needed
+                c_output.add_line(output_line)
         else:
             self.insert_char_at_cursor(event.unicode)
         # Update rendered command text after a keypress instead of doing it
@@ -67,6 +76,7 @@ class CommandEntry:
                                                 True,
                                                 command_text_color,
                                                 pygame.Color(0, 0, 0))
+        return pause_command
 
     def parse_attack(self, attack_string):
         '''Returns a dictionary with the attack direction and command

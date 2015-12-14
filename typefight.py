@@ -111,10 +111,10 @@ def run_fight(opponent=Opponent(screen)):
                     pass
             elif event.type is KEYDOWN:
                 if not paused:
-                    c_entry.handle_keydown_event(event,
-                                                 player,
-                                                 opponent,
-                                                 c_output)
+                    paused = c_entry.handle_keydown_event(event,
+                                                          player,
+                                                          opponent,
+                                                          c_output)
 
         # State updating
         if not paused:
