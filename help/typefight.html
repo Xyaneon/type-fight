@@ -21,7 +21,7 @@
       Please consult the below image for an overview of different parts of the
       game heads-up display (HUD):
     </p>
-    <img src="images/HUD_overview.png" alt="HUD overview" />
+    <img id="hud-overview" src="images/HUD_overview.png" alt="HUD overview" />
     <ol>
       <li>
         <strong>Your health.</strong>
@@ -91,7 +91,8 @@
     <p>
       Note that some commands have shorter <em>aliases</em> which can make them
       faster to type. Here's a free one: <code>punch</code> can also be typed
-      as <code>jab</code>, which lets you use the move much faster!
+      as <code>jab</code>, which lets you use the move much faster! Experiment
+      and see if you can find any others.
     </p>
     <p>
       Attacks and blocks also should have a direction inputted either before or
@@ -123,12 +124,31 @@
       <li>Jonathan Medina &mdash; <em>Level designer and QA</em></li>
     </ul>
     <p>This is an open-source game available under the
-      <a href="http://www.gnu.org/licenses/gpl-3.0.en.html">GNU GPLv3 license</a>.
+      <a href="http://www.gnu.org/licenses/gpl-3.0.en.html">
+        GNU GPLv3 license
+      </a>; the full source code can be downloaded from our
+      <a href="https://github.com/WarriorIng64/type-fight">
+        public GitHub repository.
+      </a>
     </p>
 
     <h1>Release notes</h1>
     <p>This section tracks the version history of each release of the game.</p>
-    <h2>v0.5</h2>
+    <h2>v0.6</h2>
+    <ul>
+      <li>Restyled help file.</li>
+      <li>Minor command entry rendering optimization.</li>
+      <li>Wider command entry.</li>
+      <li>Adjusted HUD to show more of the opponent and the player's arms.</li>
+      <li>A couple more sound effects added.</li>
+      <li><code>op</code> alias removed; <code>hook</code> and <code>slap</code>
+        aliases added.</li>
+      <li>Command output entries no longer show a timestamp.</li>
+      <li><code>pause</code> and <code>menu</code> commands added for pausing
+        the game and showing the menu.</li>
+    </ul>
+
+    <h2><a href="https://github.com/WarriorIng64/type-fight/releases/tag/v0.5">v0.5</a></h2>
     <ul>
       <li>Use a function to load Player images.</li>
       <li>The game can now be paused by opening the menu.</li>
